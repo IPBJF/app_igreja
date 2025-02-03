@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Fotos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
+            color: #fff; /* Texto branco para melhor contraste no fundo escuro */
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo cinza escuro semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            color: #ffffff; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Galeria de Fotos */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .galeria img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.1); /* Efeito de ampliação ao passar o mouse */
+        }
+
+        /* Imagem Ampliada */
+        .imagem-ampliada-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none; /* Inicialmente oculto */
+        }
+
+        .imagem-ampliada {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Botão de Download */
+        .botao-download {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .botao-download:hover {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Botões de Navegação */
+        .botao-navegacao {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 1001;
+        }
+
+        .botao-anterior {
+            left: 20px;
+        }
+
+        .botao-proximo {
+            right: 20px;
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="/pages/contato.html" class="menu-item">Contato</a>
+        <a href="/pages/local.html" class="menu-item">Localização</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <h1>Galeria de Fotos</h1>
+
+        <!-- Galeria de Fotos -->
+        <div class="galeria" id="galeria-fotos">
+            <!-- Fotos serão carregadas aqui -->
+        </div>
+    </div>
+
+    <!-- Container para Imagem Ampliada -->
+    <div id="imagem-ampliada-container" class="imagem-ampliada-container">
+        <button class="botao-navegacao botao-anterior" onclick="navegarFoto(-1)">❮</button>
+        <img id="imagem-ampliada" class="imagem-ampliada" src="" alt="Imagem Ampliada">
+        <button class="botao-navegacao botao-proximo" onclick="navegarFoto(1)">❯</button>
+        <button id="botao-download" class="botao-download" onclick="baixarFoto()">Baixar Foto</button>
+    </div>
+
+    <script>
+        // Array de fotos
+        const fotos = [
+            "../assets/fotos/foto1.png",
+            "../assets/fotos/foto2.png",
+            "../assets/fotos/foto3.png",
+            "../assets/fotos/foto4.png",
+            "../assets/fotos/foto5.png",
+            "../assets/fotos/foto6.png"
+        ];
+
+        let fotoAtual = 0;
+
+        // Função para Carregar Fotos na Galeria
+        function carregarFotos() {
+            const galeria = document.getElementById('galeria-fotos');
+            fotos.forEach((foto, index) => {
+                const img = document.createElement('img');
+                img.src = foto;
+                img.alt = `Foto ${index + 1}`;
+                img.onclick = () => abrirFoto(index);
+                galeria.appendChild(img);
+            });
+        }
+
+        // Função para Abrir uma Foto Ampliada
+        function abrirFoto(index) {
+            fotoAtual = index;
+            const imagemAmpliada = document.getElementById('imagem-ampliada');
+            const container = document.getElementById('imagem-ampliada-container');
+            const botaoDownload = document.getElementById('botao-download');
+
+            imagemAmpliada.src = fotos[fotoAtual];
+            container.style.display = 'flex';
+
+            // Configura o link de download
+            botaoDownload.onclick = () => baixarFoto();
+        }
+
+        // Função para Navegar Entre as Fotos
+        function navegarFoto(direcao) {
+            fotoAtual += direcao;
+            if (fotoAtual < 0) fotoAtual = fotos.length - 1;
+            if (fotoAtual >= fotos.length) fotoAtual = 0;
+
+            const imagemAmpliada = document.getElementById('imagem-ampliada');
+            imagemAmpliada.src = fotos[fotoAtual];
+        }
+
+        // Função para Baixar a Foto
+        function baixarFoto() {
+            const link = document.createElement('a');
+            link.href = fotos[fotoAtual];
+            link.download = `foto-${fotoAtual + 1}.png`;
+            link.click();
+        }
+
+        // Fechar Imagem Ampliada ao Clicar Fora
+        document.getElementById('imagem-ampliada-container').onclick = (event) => {
+            if (event.target === event.currentTarget) {
+                event.currentTarget.style.display = 'none';
+            }
+        };
+
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+
+        // Inicialização
+        carregarFotos();
+    </script>
+</body>
+</html>

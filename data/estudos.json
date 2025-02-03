@@ -1,0 +1,17 @@
+[
+    {
+        "data": "02/02/2025",
+        "titulo": "Tudo Novo de Novo",
+        "pdf": "../assets/pdf/tudo_novo_de_novo.pdf"
+    },
+    {
+        "data": "15/03/2025",
+        "titulo": "A Graça de Deus",
+        "pdf": "../assets/pdf/a_graca_de_deus.pdf"
+    },
+    {
+        "data": "20/04/2025",
+        "titulo": "Fé e Obediência",
+        "pdf": "../assets/pdf/fe_e_obediencia.pdf"
+    }
+]

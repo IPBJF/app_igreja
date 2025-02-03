@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
+            color: #fff; /* Texto branco para melhor contraste no fundo escuro */
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo cinza escuro semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            color: #ffffff; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Subtítulo */
+        h2 {
+            font-size: 1.2rem;
+            color: #ccc; /* Cinza claro */
+            margin-bottom: 20px;
+        }
+
+        /* Imagem do QR Code */
+        .qrcode-img {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            display: block;
+            border: 2px solid #006400; /* Borda verde escuro */
+            border-radius: 10px;
+        }
+
+        /* Chave PIX */
+        .chave-pix {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #e3e7e3; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Texto Explicativo */
+        .texto-explicativo {
+            font-size: 0.9rem;
+            color: #ccc; /* Cinza claro */
+            line-height: 1.6;
+        }
+
+        /* Botão de Copiar Chave PIX */
+        .btn-copiar {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-copiar:hover {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Localização</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Título -->
+        <h1>Apoie os Projetos da Igreja</h1>
+
+        <!-- Subtítulo -->
+        <h2></h2>
+
+        <!-- Imagem do QR Code -->
+        <img src="../assets/qrcode.png" alt="QR Code PIX" class="qrcode-img">
+
+        <!-- Chave PIX -->
+        <div class="chave-pix">
+            Chave PIX: <span id="chave-pix">15.531.493/0001-63</span>
+        </div>
+
+        <!-- Botão de Copiar Chave PIX -->
+        <button class="btn-copiar" onclick="copiarChavePIX()">Copiar Chave PIX</button>
+
+        <!-- Texto Explicativo -->
+        <div class="texto-explicativo">
+            Para realizar sua oferta, abra o aplicativo do seu banco ou carteira digital, selecione a opção de pagamento via PIX e escaneie o QR Code acima ou use a chave PIX fornecida.
+        </div>
+    </div>
+
+    <script>
+        // Função para Copiar a Chave PIX
+        function copiarChavePIX() {
+            const chavePIX = document.getElementById('chave-pix').textContent;
+
+            // Cria um elemento temporário para copiar o texto
+            const textarea = document.createElement('textarea');
+            textarea.value = chavePIX;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            alert('Chave PIX copiada para a área de transferência!');
+        }
+
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+    </script>
+</body>
+</html>

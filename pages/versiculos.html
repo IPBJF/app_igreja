@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versículos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
+            color: #006400; /* Verde escuro */
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            color: #333; /* Texto preto para melhor contraste no fundo branco */
+        }
+
+        /* Título */
+        h1 {
+            text-align: center;
+            color: #006400; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Versículos Contínuos */
+        .versiculos-container {
+            text-align: justify; /* Alinha o texto uniformemente */
+            line-height: 1.6; /* Espaçamento entre linhas */
+            white-space: normal; /* Permite quebras naturais de linha */
+        }
+
+        .versiculo {
+            display: inline; /* Exibe os versículos continuamente */
+            margin-right: 10px; /* Espaçamento entre os versículos */
+            cursor: pointer; /* Cursor de mão para indicar interação */
+        }
+
+        /* Destacar Versículo Selecionado */
+        .versiculo-selecionado {
+            background-color: rgba(255, 255, 0, 0.5); /* Amarelo semi-transparente */
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+
+        /* Botões de Navegação */
+        .botoes-navegacao {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .botoes-navegacao button {
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .botoes-navegacao button:hover {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Botão de Compartilhar */
+        .botao-compartilhar {
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+
+        .botao-compartilhar:hover {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Local</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Título -->
+        <h1 id="titulo-versiculos" style="color: #006400;"></h1>
+
+        <!-- Lista de Versículos -->
+        <div id="lista-versiculos" class="versiculos-container"></div>
+
+        <!-- Botões de Navegação -->
+        <div class="botoes-navegacao">
+            <button id="btn-retroceder">Retroceder</button>
+            <button id="btn-avancar">Avançar</button>
+        </div>
+
+        <!-- Botão de Compartilhar -->
+        <button id="btn-compartilhar" class="botao-compartilhar" disabled>Compartilhar Versículo</button>
+    </div>
+
+    <script>
+        // Função para Obter Parâmetros da URL
+        function obterParametroURL(parametro) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const valor = urlParams.get(parametro); // Obtém o valor do parâmetro
+            return decodeURIComponent(valor || ''); // Decodifica o valor (ou retorna string vazia se nulo)
+        }
+
+        // Função para Carregar Dados do JSON
+        async function carregarVersiculos() {
+            try {
+                // Caminho para o arquivo JSON
+                const response = await fetch('../data/versiculos.json');
+                const dados = await response.json();
+
+                console.log('Versículos carregados:', dados); // Log para verificar os dados
+
+                // Obtém o livro e capítulo selecionados da URL
+                let livroSelecionado = obterParametroURL('livro');
+                let capituloSelecionado = parseInt(obterParametroURL('capitulo'), 10);
+
+                console.log('Livro selecionado:', livroSelecionado); // Log para verificar o livro
+                console.log('Capítulo selecionado:', capituloSelecionado); // Log para verificar o capítulo
+
+                const tituloVersiculos = document.getElementById('titulo-versiculos');
+                const listaVersiculos = document.getElementById('lista-versiculos');
+
+                if (!livroSelecionado || !capituloSelecionado) {
+                    tituloVersiculos.textContent = 'Nenhum versículo encontrado.';
+                    return;
+                }
+
+                // Procura o livro e capítulo no JSON
+                if (dados[livroSelecionado] && dados[livroSelecionado][capituloSelecionado]) {
+                    tituloVersiculos.textContent = `${livroSelecionado} ${capituloSelecionado}`;
+
+                    // Limpa a lista de versículos
+                    listaVersiculos.innerHTML = '';
+
+                    // Adiciona os versículos à lista
+                    dados[livroSelecionado][capituloSelecionado].forEach((versiculo, index) => {
+                        const span = document.createElement('span');
+                        span.className = 'versiculo';
+                        span.textContent = `${index + 1} ${versiculo} `; // Adiciona espaço após o versículo
+
+                        // Permite selecionar o versículo
+                        span.onclick = () => {
+                            // Remove o destaque de outros versículos
+                            document.querySelectorAll('.versiculo').forEach((v) => {
+                                v.classList.remove('versiculo-selecionado');
+                            });
+
+                            // Destaca o versículo clicado
+                            span.classList.add('versiculo-selecionado');
+
+                            // Habilita o botão de compartilhar
+                            const btnCompartilhar = document.getElementById('btn-compartilhar');
+                            btnCompartilhar.disabled = false;
+
+                            // Define o texto a ser compartilhado
+                            btnCompartilhar.onclick = () => {
+                                const textoCompartilhar = `${livroSelecionado} ${capituloSelecionado}:${index + 1} - ${versiculo}`;
+                                compartilharTexto(textoCompartilhar);
+                            };
+                        };
+
+                        listaVersiculos.appendChild(span);
+                    });
+
+                    // Configura os botões de navegação
+                    configurarBotoesNavegacao(livroSelecionado, capituloSelecionado, dados);
+                } else {
+                    tituloVersiculos.textContent = 'Versículos não encontrados.';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar o arquivo JSON:', error);
+                document.getElementById('titulo-versiculos').textContent = 'Erro ao carregar os dados.';
+            }
+        }
+
+        // Configura os botões de navegação
+        function configurarBotoesNavegacao(livroSelecionado, capituloSelecionado, dados) {
+            const btnRetroceder = document.getElementById('btn-retroceder');
+            const btnAvancar = document.getElementById('btn-avancar');
+
+            const capitulosDisponiveis = Object.keys(dados[livroSelecionado]).map(Number).sort((a, b) => a - b);
+            const indiceAtual = capitulosDisponiveis.indexOf(capituloSelecionado);
+
+            // Habilita ou desabilita o botão "Retroceder"
+            if (indiceAtual > 0) {
+                btnRetroceder.disabled = false;
+                btnRetroceder.onclick = () => {
+                    const novoCapitulo = capitulosDisponiveis[indiceAtual - 1];
+                    window.location.href = `versiculos.html?livro=${encodeURIComponent(livroSelecionado)}&capitulo=${novoCapitulo}`;
+                };
+            } else {
+                btnRetroceder.disabled = true;
+            }
+
+            // Habilita ou desabilita o botão "Avançar"
+            if (indiceAtual < capitulosDisponiveis.length - 1) {
+                btnAvancar.disabled = false;
+                btnAvancar.onclick = () => {
+                    const novoCapitulo = capitulosDisponiveis[indiceAtual + 1];
+                    window.location.href = `versiculos.html?livro=${encodeURIComponent(livroSelecionado)}&capitulo=${novoCapitulo}`;
+                };
+            } else {
+                btnAvancar.disabled = true;
+            }
+        }
+
+        // Função para Compartilhar Texto
+        function compartilharTexto(texto) {
+            const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+
+        // Inicialização
+        carregarVersiculos();
+
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+    </script>
+</body>
+</html>

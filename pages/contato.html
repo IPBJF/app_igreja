@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Caixa de Texto Transparente */
+        .caixa-texto {
+            background-color: rgba(50, 50, 50, 0.7); /* Cinza escuro com transparência */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto; /* Centraliza horizontalmente */
+            text-align: center;
+        }
+
+        /* Botão do WhatsApp */
+        .botao-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366; /* Cor verde do WhatsApp */
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .botao-whatsapp img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .botao-whatsapp:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Local</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Caixa de Texto Transparente -->
+        <div class="caixa-texto">
+            <h1>Entre em Contato Conosco</h1>
+            <p>
+                Estamos aqui para ajudar! Se você tiver dúvidas, sugestões ou quiser saber mais sobre nossa igreja, entre em contato conosco pelo WhatsApp. Nossa equipe estará pronta para atendê-lo.
+            </p>
+
+            <!-- Botão do WhatsApp -->
+            <a href="https://wa.me/+5532991222962" target="_blank" class="botao-whatsapp">
+                <img src="../assets/whatsapp.png" alt="WhatsApp">
+                <span>Iniciar Conversa no WhatsApp</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

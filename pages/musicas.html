@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player de Músicas</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
+            color: #006400; /* Verde escuro */
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            color: #333; /* Texto preto para melhor contraste no fundo branco */
+        }
+
+        /* Título */
+        h1 {
+            text-align: center;
+            color: #006400; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Player do YouTube */
+        .player-youtube {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Proporção widescreen */
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Local</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Título -->
+        <h1>Playlist de Músicas</h1>
+
+        <!-- Player do YouTube -->
+        <iframe
+            class="player-youtube"
+            src="https://www.youtube.com/embed/videoseries?list=RDHFDMHBa_ziQ&index=2"
+            title="YouTube Playlist"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudos Bíblicos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
+            color: #fff; /* Texto branco para melhor contraste no fundo escuro */
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo cinza escuro semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            color: #ffffff; /* Verde escuro */
+            margin-bottom: 20px;
+        }
+
+        /* Lista de Estudos */
+        .lista-estudos {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Espaçamento entre os itens */
+        }
+
+        .estudo-item {
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+            color: #333; /* Texto preto para melhor contraste */
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .estudo-data {
+            font-size: 0.9rem;
+            color: #006400; /* Verde escuro */
+            margin-bottom: 10px;
+        }
+
+        .estudo-titulo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #004d00; /* Verde mais escuro */
+            margin-bottom: 10px;
+        }
+
+        .estudo-botao {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .estudo-botao:hover {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Localização</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Título -->
+        <h1>Estudos Bíblicos</h1>
+
+        <!-- Lista de Estudos -->
+        <div class="lista-estudos" id="lista-estudos">
+            <!-- Estudos serão carregados aqui -->
+        </div>
+    </div>
+
+    <script>
+        // Função para Carregar Dados do JSON
+        async function carregarEstudos() {
+            try {
+                // Caminho para o arquivo JSON
+                const response = await fetch('../data/estudos.json');
+                const dados = await response.json();
+
+                console.log('Estudos carregados:', dados); // Log para verificar os dados
+
+                const listaEstudos = document.getElementById('lista-estudos');
+
+                if (dados.length === 0) {
+                    listaEstudos.innerHTML = '<p>Nenhum estudo disponível no momento.</p>';
+                    return;
+                }
+
+                // Limpa a lista de estudos
+                listaEstudos.innerHTML = '';
+
+                // Adiciona os estudos à lista
+                dados.forEach((estudo) => {
+                    const div = document.createElement('div');
+                    div.className = 'estudo-item';
+
+                    const data = document.createElement('div');
+                    data.className = 'estudo-data';
+                    data.textContent = estudo.data;
+
+                    const titulo = document.createElement('div');
+                    titulo.className = 'estudo-titulo';
+                    titulo.textContent = estudo.titulo;
+
+                    const botao = document.createElement('a');
+                    botao.className = 'estudo-botao';
+                    botao.href = estudo.pdf; // Link para o PDF
+                    botao.target = '_blank'; // Abre em uma nova aba
+                    botao.textContent = 'Baixar PDF';
+
+                    div.appendChild(data);
+                    div.appendChild(titulo);
+                    div.appendChild(botao);
+
+                    listaEstudos.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar o arquivo JSON:', error);
+                document.getElementById('lista-estudos').innerHTML = '<p>Erro ao carregar os estudos.</p>';
+            }
+        }
+
+        // Inicialização
+        carregarEstudos();
+
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+    </script>
+</body>
+</html>

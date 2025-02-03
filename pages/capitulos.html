@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Lista de Capítulos */
+        .capitulos {
+            display: flex;
+            flex-wrap: wrap; /* Quebra a linha após 5 capítulos */
+            justify-content: center; /* Centraliza os capítulos */
+            gap: 10px; /* Espaçamento entre os capítulos */
+            margin-top: 20px;
+        }
+
+        .capitulo {
+            background-color: #fff;
+            color: #006400; /* Verde escuro */
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: calc(20% - 20px); /* 5 capítulos por linha (20% cada, menos o espaçamento) */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+        }
+
+        .capitulo:hover {
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Esconde o menu fora da tela */
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0; /* Mostra o menu */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Local</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Título do Livro -->
+        <h1 id="titulo-livro" style="text-align: center; color: #006400; margin-bottom: 20px;"></h1>
+
+        <!-- Lista de Capítulos -->
+        <div class="capitulos" id="lista-capitulos"></div>
+    </div>
+
+    <script>
+        // Função para Obter Parâmetros da URL
+        function obterParametroURL(parametro) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const valor = urlParams.get(parametro); // Obtém o valor do parâmetro
+            return decodeURIComponent(valor || ''); // Decodifica o valor (ou retorna string vazia se nulo)
+        }
+
+        // Função para Carregar Dados do JSON
+        async function carregarDadosBiblia() {
+            try {
+                // Caminho para o arquivo JSON
+                const response = await fetch('../data/capitulos.json');
+                const dados = await response.json();
+
+                console.log('Capítulos carregados:', dados); // Log para verificar os dados
+
+                // Obtém o livro selecionado da URL
+                const livroSelecionado = obterParametroURL('livro');
+                console.log('Livro selecionado:', livroSelecionado); // Log para verificar o livro
+
+                const tituloLivro = document.getElementById('titulo-livro');
+                const listaCapitulos = document.getElementById('lista-capitulos');
+
+                if (!livroSelecionado) {
+                    tituloLivro.textContent = 'Nenhum livro selecionado.';
+                    return;
+                }
+
+                if (dados[livroSelecionado]) {
+                    tituloLivro.textContent = livroSelecionado;
+
+                    // Limpa a lista de capítulos
+                    listaCapitulos.innerHTML = '';
+
+                    // Adiciona os capítulos à lista
+                    dados[livroSelecionado].forEach((capituloNumero) => {
+                        const div = document.createElement('div');
+                        div.className = 'capitulo';
+                        div.textContent = `Capítulo ${capituloNumero}`;
+
+                        // Redireciona para a página de versículos ao clicar no capítulo
+                        div.onclick = () => {
+                            window.location.href = `versiculos.html?livro=${encodeURIComponent(livroSelecionado)}&capitulo=${capituloNumero}`;
+                        };
+
+                        listaCapitulos.appendChild(div);
+                    });
+                } else {
+                    tituloLivro.textContent = 'Livro não encontrado.';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar o arquivo JSON:', error);
+                document.getElementById('titulo-livro').textContent = 'Erro ao carregar os dados.';
+            }
+        }
+
+        // Inicialização
+        carregarDadosBiblia();
+
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+    </script>
+</body>
+</html>
