@@ -3,24 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
-    <title>Minha Igreja</title>
+    <meta name="theme-color" content="#006400">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Início</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
     <style>
-        body, html {
+        /* Fundo Transparente Cinza Escuro */
+        body {
             margin: 0;
-            padding: 0;
-            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        iframe {
+
+        /* Conteúdo Principal */
+        .conteudo {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 800px;
+            width: 95%;
+        }
+
+        /* Logo */
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        /* Botões Personalizados */
+        .botoes-paginas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .botao-pagina {
+            width: 100%;
+            min-height: 100px; /* Altura mínima */
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .botao-pagina img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .botao-pagina:hover {
+            transform: scale(1.1);
+        }
+
+        /* Rodapé */
+        footer {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        footer img {
+            width: 32px;
+            height: 32px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #006400;
+        }
+
+        /* Estilo do Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .menu-lateral-aberto {
+            left: 0;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu-item:hover {
+            background-color: #575757;
+        }
+
+        /* Botão do Menu */
+        .btn-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
             border: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
         }
     </style>
 </head>
 <body>
-    <!-- WebView para carregar o GitHub Pages -->
-    <iframe id="webview" src="https://ipbjf.github.io/app_igreja/"></iframe>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="index.html" class="menu-item">Início</a>
+        <a href="pages/contato.html" class="menu-item">Contato</a>
+        <a href="pages/local.html" class="menu-item">Localização</a>
+    </div>
+
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Logo -->
+        <img src="assets/logo.png" alt="Logo da Igreja" class="logo">
+
+        <!-- Descrição -->
+        <p style="color: #ccc;">
+            Aqui você encontrará recursos para estudos bíblicos e muito mais.
+            Explore nossa Bíblia online e conecte-se conosco!
+        </p>
+
+        <!-- Botões Personalizados -->
+        <div class="botoes-paginas">
+            <a href="pages/biblia.html">
+                <div class="botao-pagina">
+                    <img src="assets/Biblia.png" alt="Bíblia">
+                </div>
+            </a>
+            <a href="pages/fotos.html">
+                <div class="botao-pagina">
+                    <img src="assets/Fotos.png" alt="Fotos">
+                </div>
+            </a>
+            <a href="pages/musicas.html">
+                <div class="botao-pagina">
+                    <img src="assets/musicas.png" alt="Músicas">
+                </div>
+            </a>
+            <a href="pages/eventos.html">
+                <div class="botao-pagina">
+                    <img src="assets/eventos.png" alt="Eventos">
+                </div>
+            </a>
+            <a href="pages/estudos.html">
+                <div class="botao-pagina">
+                    <img src="assets/estudos.png" alt="Estudos">
+                </div>
+            </a>
+            <a href="pages/ofertas.html">
+                <div class="botao-pagina">
+                    <img src="assets/ofertas.png" alt="Ofertas">
+                </div>
+            </a>
+        </div>
+
+        <!-- Rodapé com Logo do Instagram -->
+        <footer>
+            <img src="assets/instagram-logo.png" alt="Instagram">
+            <a href="https://www.instagram.com/ipbbiblica/" target="_blank">@ipbbiblica</a>
+        </footer>
+    </div>
+
+    <script>
+        // Alternar Menu Lateral
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            const menuLateral = document.getElementById('menu-lateral');
+            menuLateral.classList.toggle('menu-lateral-aberto');
+        });
+
+        // Fecha o Menu ao Clicar Fora
+        document.addEventListener('click', (event) => {
+            const menuLateral = document.getElementById('menu-lateral');
+            const btnMenu = document.getElementById('btn-menu');
+
+            if (!menuLateral.contains(event.target) && !btnMenu.contains(event.target)) {
+                menuLateral.classList.remove('menu-lateral-aberto');
+            }
+        });
+    </script>
 </body>
 </html>
