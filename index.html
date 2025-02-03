@@ -19,8 +19,9 @@
             color: #fff;
             overflow: hidden;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
         }
         /* Conteúdo Principal */
@@ -63,28 +64,25 @@
         .botao-pagina:hover {
             transform: scale(1.1);
         }
-        /* Rodapé */
-        footer {
-            margin-top: 40px;
+        /* Instagram abaixo dos botões */
+        .instagram-link {
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
         }
-        footer img {
+        .instagram-link img {
             width: 32px;
             height: 32px;
         }
-        footer a {
+        .instagram-link a {
             color: #fff;
             text-decoration: none;
             font-size: 1rem;
             transition: color 0.3s ease;
         }
-        footer a:hover {
+        .instagram-link a:hover {
             color: #006400;
         }
         /* Estilo do Menu Lateral */
@@ -179,11 +177,11 @@
                 </div>
             </a>
         </div>
-        <!-- Rodapé com Logo do Instagram -->
-        <footer>
+        <!-- Link do Instagram -->
+        <div class="instagram-link">
             <img src="/app_igreja/assets/instagram-logo.png" alt="Instagram">
             <a href="https://www.instagram.com/ipbbiblica/" target="_blank">@ipbbiblica</a>
-        </footer>
+        </div>
     </div>
     <script>
         // Alternar Menu Lateral
