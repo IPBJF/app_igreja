@@ -7,8 +7,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Início</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="assets/logo.png" type="image/png">
+    <!-- Usando caminhos absolutos -->
+    <link rel="stylesheet" href="/app_igreja/css/styles.css">
+    <link rel="icon" href="/app_igreja/assets/logo.png" type="image/png">
     <style>
         /* Fundo Transparente Cinza Escuro */
         body {
@@ -22,7 +23,6 @@
             align-items: center;
             height: 100vh;
         }
-
         /* Conteúdo Principal */
         .conteudo {
             text-align: center;
@@ -33,14 +33,12 @@
             max-width: 800px;
             width: 95%;
         }
-
         /* Logo */
         .logo {
             max-width: 200px;
             height: auto;
             margin-bottom: 20px;
         }
-
         /* Botões Personalizados */
         .botoes-paginas {
             display: grid;
@@ -49,7 +47,6 @@
             justify-content: center;
             margin-top: 20px;
         }
-
         .botao-pagina {
             width: 100%;
             min-height: 100px; /* Altura mínima */
@@ -57,18 +54,15 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-
         .botao-pagina img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 10px;
         }
-
         .botao-pagina:hover {
             transform: scale(1.1);
         }
-
         /* Rodapé */
         footer {
             margin-top: 40px;
@@ -80,23 +74,19 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
         }
-
         footer img {
             width: 32px;
             height: 32px;
         }
-
         footer a {
             color: #fff;
             text-decoration: none;
             font-size: 1rem;
             transition: color 0.3s ease;
         }
-
         footer a:hover {
             color: #006400;
         }
-
         /* Estilo do Menu Lateral */
         .menu-lateral {
             position: fixed;
@@ -110,11 +100,9 @@
             padding-top: 60px;
             z-index: 1000;
         }
-
         .menu-lateral-aberto {
             left: 0;
         }
-
         .menu-item {
             display: block;
             padding: 15px;
@@ -122,11 +110,9 @@
             text-decoration: none;
             border-bottom: 1px solid #444;
         }
-
         .menu-item:hover {
             background-color: #575757;
         }
-
         /* Botão do Menu */
         .btn-menu {
             position: fixed;
@@ -145,78 +131,70 @@
 <body>
     <!-- Menu Lateral Escondido -->
     <div id="menu-lateral" class="menu-lateral">
-        <a href="index.html" class="menu-item">Início</a>
-        <a href="pages/contato.html" class="menu-item">Contato</a>
-        <a href="pages/local.html" class="menu-item">Localização</a>
+        <a href="/app_igreja/index.html" class="menu-item">Início</a>
+        <a href="/app_igreja/pages/contato.html" class="menu-item">Contato</a>
+        <a href="/app_igreja/pages/local.html" class="menu-item">Localização</a>
     </div>
-
     <!-- Botão para Abrir o Menu -->
     <button id="btn-menu" class="btn-menu">☰ Menu</button>
-
     <!-- Conteúdo Principal -->
     <div class="conteudo">
         <!-- Logo -->
-        <img src="assets/logo.png" alt="Logo da Igreja" class="logo">
-
+        <img src="/app_igreja/assets/logo.png" alt="Logo da Igreja" class="logo">
         <!-- Descrição -->
         <p style="color: #ccc;">
             Aqui você encontrará recursos para estudos bíblicos e muito mais.
             Explore nossa Bíblia online e conecte-se conosco!
         </p>
-
         <!-- Botões Personalizados -->
         <div class="botoes-paginas">
-            <a href="pages/biblia.html">
+            <a href="/app_igreja/pages/biblia.html">
                 <div class="botao-pagina">
-                    <img src="assets/Biblia.png" alt="Bíblia">
+                    <img src="/app_igreja/assets/Biblia.png" alt="Bíblia">
                 </div>
             </a>
-            <a href="pages/fotos.html">
+            <a href="/app_igreja/pages/fotos.html">
                 <div class="botao-pagina">
-                    <img src="assets/Fotos.png" alt="Fotos">
+                    <img src="/app_igreja/assets/Fotos.png" alt="Fotos">
                 </div>
             </a>
-            <a href="pages/musicas.html">
+            <a href="/app_igreja/pages/musicas.html">
                 <div class="botao-pagina">
-                    <img src="assets/musicas.png" alt="Músicas">
+                    <img src="/app_igreja/assets/musicas.png" alt="Músicas">
                 </div>
             </a>
-            <a href="pages/eventos.html">
+            <a href="/app_igreja/pages/eventos.html">
                 <div class="botao-pagina">
-                    <img src="assets/eventos.png" alt="Eventos">
+                    <img src="/app_igreja/assets/eventos.png" alt="Eventos">
                 </div>
             </a>
-            <a href="pages/estudos.html">
+            <a href="/app_igreja/pages/estudos.html">
                 <div class="botao-pagina">
-                    <img src="assets/estudos.png" alt="Estudos">
+                    <img src="/app_igreja/assets/estudos.png" alt="Estudos">
                 </div>
             </a>
-            <a href="pages/ofertas.html">
+            <a href="/app_igreja/pages/ofertas.html">
                 <div class="botao-pagina">
-                    <img src="assets/ofertas.png" alt="Ofertas">
+                    <img src="/app_igreja/assets/ofertas.png" alt="Ofertas">
                 </div>
             </a>
         </div>
-
         <!-- Rodapé com Logo do Instagram -->
         <footer>
-            <img src="assets/instagram-logo.png" alt="Instagram">
+            <img src="/app_igreja/assets/instagram-logo.png" alt="Instagram">
             <a href="https://www.instagram.com/ipbbiblica/" target="_blank">@ipbbiblica</a>
         </footer>
     </div>
-
     <script>
         // Alternar Menu Lateral
         document.getElementById('btn-menu').addEventListener('click', () => {
             const menuLateral = document.getElementById('menu-lateral');
             menuLateral.classList.toggle('menu-lateral-aberto');
         });
-
         // Fecha o Menu ao Clicar Fora
         document.addEventListener('click', (event) => {
             const menuLateral = document.getElementById('menu-lateral');
             const btnMenu = document.getElementById('btn-menu');
-
             if (!menuLateral.contains(event.target) && !btnMenu.contains(event.target)) {
                 menuLateral.classList.remove('menu-lateral-aberto');
             }
