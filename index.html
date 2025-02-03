@@ -35,26 +35,32 @@
 </head>
 <body>
     <!-- WebView para carregar o conteúdo principal -->
-    <iframe id="webview" src="pages/biblia.html" onerror="handleIframeError()"></iframe>
+    <iframe id="webview" src="https://ipbjf.github.io/app_igreja/" onerror="handleIframeError()"></iframe>
     
     <!-- Mensagem de erro caso o iframe falhe -->
     <div id="error-message">Erro ao carregar a página. Verifique sua conexão.</div>
+
     <!-- Script para manipular o comportamento offline e erros -->
     <script>
+        // Função para lidar com erros no iframe
         function handleIframeError() {
             document.getElementById('webview').style.display = 'none';
             document.getElementById('error-message').style.display = 'block';
         }
+
+        // Verifica se o usuário está offline ao carregar a página
         window.addEventListener('load', () => {
             if (!navigator.onLine) {
                 console.log("Modo offline detectado.");
                 document.getElementById('webview').src = "pages/biblia.html"; // Redireciona para a Bíblia offline
             }
         });
+
         // Monitora mudanças na conexão
         window.addEventListener('online', () => {
             location.reload(); // Recarrega a página quando voltar à internet
         });
+
         window.addEventListener('offline', () => {
             alert("Você está offline. Algumas funcionalidades podem estar indisponíveis.");
         });
