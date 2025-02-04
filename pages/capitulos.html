@@ -6,31 +6,20 @@
     <title>Capítulos</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        /* Lista de Capítulos */
-        .capitulos {
+        /* Fundo Transparente Cinza Escuro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo cinza escuro */
+            color: #fff;
             display: flex;
-            flex-wrap: wrap; /* Quebra a linha após 5 capítulos */
-            justify-content: center; /* Centraliza os capítulos */
-            gap: 10px; /* Espaçamento entre os capítulos */
-            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            padding-top: 50px; /* Espaço para o botão do menu */
+            overflow-y: auto; /* Habilita rolagem vertical */
         }
-
-        .capitulo {
-            background-color: #fff;
-            color: #006400; /* Verde escuro */
-            padding: 15px 20px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-            width: calc(20% - 20px); /* 5 capítulos por linha (20% cada, menos o espaçamento) */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
-        }
-
-        .capitulo:hover {
-            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
-        }
-
         /* Estilo do Menu Lateral */
         .menu-lateral {
             position: fixed;
@@ -38,29 +27,25 @@
             left: -250px; /* Esconde o menu fora da tela */
             width: 250px;
             height: 100%;
-            background-color: #333;
+            background-color: #333; /* Fundo escuro para o menu */
             color: white;
             transition: left 0.3s ease;
-            padding-top: 60px;
+            padding-top: 50px;
             z-index: 1000;
         }
-
         .menu-lateral-aberto {
             left: 0; /* Mostra o menu */
         }
-
         .menu-item {
             display: block;
-            padding: 15px;
+            padding: 12px;
             color: white;
             text-decoration: none;
             border-bottom: 1px solid #444;
         }
-
         .menu-item:hover {
-            background-color: #575757;
+            background-color: #575757; /* Efeito de hover no menu */
         }
-
         /* Botão do Menu */
         .btn-menu {
             position: fixed;
@@ -69,10 +54,59 @@
             background-color: #333;
             color: white;
             border: none;
-            padding: 10px;
-            font-size: 1.2rem;
+            padding: 8px;
+            font-size: 1rem;
             cursor: pointer;
             z-index: 1001;
+        }
+        /* Título do Livro */
+        #titulo-livro {
+            font-size: 2rem;
+            color: #fff; /* Texto branco */
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo cinza escuro */
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+        }
+        /* Lista de Capítulos */
+        .capitulos {
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo único para os capítulos */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Grade responsiva */
+            gap: 15px; /* Espaçamento entre os capítulos */
+            justify-content: center; /* Centraliza os capítulos */
+            width: 90%;
+            max-width: 400px;
+        }
+        .capitulo {
+            background-color: transparent; /* Sem fundo individual */
+            color: #fff; /* Texto branco */
+            padding: 15px;
+            border: 2px solid #fff; /* Borda branca */
+            border-radius: 20px; /* Bordas arredondadas */
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .capitulo:hover {
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada no hover */
+            background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil no hover */
+        }
+        /* Mensagem de Erro */
+        .mensagem-erro {
+            color: #ff4d4d; /* Vermelho neon para mensagens de erro */
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -83,19 +117,15 @@
         <a href="contato.html" class="menu-item">Contato</a>
         <a href="local.html" class="menu-item">Local</a>
     </div>
-
     <!-- Botão para Abrir o Menu -->
     <button id="btn-menu" class="btn-menu">☰ Menu</button>
-
     <!-- Conteúdo Principal -->
     <div class="conteudo">
         <!-- Título do Livro -->
-        <h1 id="titulo-livro" style="text-align: center; color: #006400; margin-bottom: 20px;"></h1>
-
+        <h1 id="titulo-livro"></h1>
         <!-- Lista de Capítulos -->
         <div class="capitulos" id="lista-capitulos"></div>
     </div>
-
     <script>
         // Função para Obter Parâmetros da URL
         function obterParametroURL(parametro) {
@@ -103,45 +133,35 @@
             const valor = urlParams.get(parametro); // Obtém o valor do parâmetro
             return decodeURIComponent(valor || ''); // Decodifica o valor (ou retorna string vazia se nulo)
         }
-
         // Função para Carregar Dados do JSON
         async function carregarDadosBiblia() {
             try {
                 // Caminho para o arquivo JSON
                 const response = await fetch('../data/capitulos.json');
                 const dados = await response.json();
-
                 console.log('Capítulos carregados:', dados); // Log para verificar os dados
-
                 // Obtém o livro selecionado da URL
                 const livroSelecionado = obterParametroURL('livro');
                 console.log('Livro selecionado:', livroSelecionado); // Log para verificar o livro
-
                 const tituloLivro = document.getElementById('titulo-livro');
                 const listaCapitulos = document.getElementById('lista-capitulos');
-
                 if (!livroSelecionado) {
                     tituloLivro.textContent = 'Nenhum livro selecionado.';
                     return;
                 }
-
                 if (dados[livroSelecionado]) {
                     tituloLivro.textContent = livroSelecionado;
-
                     // Limpa a lista de capítulos
                     listaCapitulos.innerHTML = '';
-
                     // Adiciona os capítulos à lista
                     dados[livroSelecionado].forEach((capituloNumero) => {
                         const div = document.createElement('div');
                         div.className = 'capitulo';
                         div.textContent = `Capítulo ${capituloNumero}`;
-
                         // Redireciona para a página de versículos ao clicar no capítulo
                         div.onclick = () => {
                             window.location.href = `versiculos.html?livro=${encodeURIComponent(livroSelecionado)}&capitulo=${capituloNumero}`;
                         };
-
                         listaCapitulos.appendChild(div);
                     });
                 } else {
@@ -152,10 +172,8 @@
                 document.getElementById('titulo-livro').textContent = 'Erro ao carregar os dados.';
             }
         }
-
         // Inicialização
         carregarDadosBiblia();
-
         // Alternar Menu Lateral
         document.getElementById('btn-menu').addEventListener('click', () => {
             const menuLateral = document.getElementById('menu-lateral');
