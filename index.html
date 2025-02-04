@@ -25,9 +25,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Alinhamento no topo */
             height: 100vh;
-            padding-top: 60px; /* Espaço para o botão do menu */
+            padding-top: 50px; /* Espaço para o botão do menu */
         }
         /* Conteúdo Principal */
         .conteudo {
@@ -36,27 +36,26 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            max-width: 800px;
+            max-width: 400px; /* Tamanho máximo reduzido */
             width: 95%;
-            margin-top: 20px; /* Espaço extra para evitar cortes */
+            margin-top: 10px; /* Espaço logo abaixo do menu */
         }
         /* Logo */
         .logo {
-            max-width: 200px;
+            max-width: 150px; /* Reduzido para caber melhor */
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         /* Botões Personalizados */
         .botoes-paginas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr); /* Alterado para 2 colunas */
+            gap: 15px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         .botao-pagina {
             width: 100%;
-            min-height: 100px; /* Altura mínima */
             aspect-ratio: 1 / 1;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -65,27 +64,27 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
         }
         .botao-pagina:hover {
             transform: scale(1.1);
         }
         /* Instagram abaixo dos botões */
         .instagram-link {
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .instagram-link img {
-            width: 32px;
-            height: 32px;
+            width: 24px; /* Ícone menor */
+            height: 24px;
         }
         .instagram-link a {
             color: #fff;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: color 0.3s ease;
         }
         .instagram-link a:hover {
@@ -101,7 +100,7 @@
             background-color: #333;
             color: white;
             transition: left 0.3s ease;
-            padding-top: 60px;
+            padding-top: 50px;
             z-index: 1000;
         }
         .menu-lateral-aberto {
@@ -109,7 +108,7 @@
         }
         .menu-item {
             display: block;
-            padding: 15px;
+            padding: 12px;
             color: white;
             text-decoration: none;
             border-bottom: 1px solid #444;
@@ -125,8 +124,8 @@
             background-color: #333;
             color: white;
             border: none;
-            padding: 10px;
-            font-size: 1.2rem;
+            padding: 8px;
+            font-size: 1rem;
             cursor: pointer;
             z-index: 1001;
         }
@@ -146,7 +145,7 @@
         <!-- Logo -->
         <img src="/app_igreja/assets/logo.png" alt="Logo da Igreja" class="logo">
         <!-- Descrição -->
-        <p style="color: #ccc;">
+        <p style="color: #ccc; font-size: 0.9rem;">
             Aqui você encontrará recursos para estudos bíblicos e muito mais.
             Explore nossa Bíblia online e conecte-se conosco!
         </p>
@@ -154,12 +153,12 @@
         <div class="botoes-paginas">
             <a href="/app_igreja/pages/biblia.html">
                 <div class="botao-pagina">
-                    <img src="/app_igreja/assets/biblia.png" alt="Bíblia">
+                    <img src="/app_igreja/assets/Biblia.png" alt="Bíblia">
                 </div>
             </a>
             <a href="/app_igreja/pages/fotos.html">
                 <div class="botao-pagina">
-                    <img src="/app_igreja/assets/fotos.png" alt="Fotos">
+                    <img src="/app_igreja/assets/Fotos.png" alt="Fotos">
                 </div>
             </a>
             <a href="/app_igreja/pages/musicas.html">
