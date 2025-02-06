@@ -17,94 +17,214 @@
  * under the License.
  */
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
-
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(to bottom, #A7A7A7 0%, #E4E4E4 51%);
+    background-color: #E4E4E4;
+    background-image: linear-gradient(to bottom, #A7A7A7 0%, #E4E4E4 51%);
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
-    height:100vh;
-    margin:0px;
-    padding:0px;
+    font-size: 12px;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
     /* Padding to avoid the "unsafe" areas behind notches in the screen */
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
-    text-transform:uppercase;
-    width:100%;
+    text-transform: uppercase;
+    width: 100%;
 }
-
 /* Portrait layout (default) */
 .app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+    background: url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position: absolute;             /* position in the center of the screen */
+    left: 50%;
+    top: 50%;
+    height: 50px;                   /* text area height */
+    width: 225px;                   /* text area width */
+    text-align: center;
+    padding: 180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: -115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
-
 /* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
     .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+        background-position: left center;
+        padding: 75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin: -90px 0px 0px -198px;  /* offset vertical: half of image height */
                                       /* offset horizontal: half of image width and text area width */
     }
 }
-
 h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
 }
-
 .event {
-    border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 12px;
+    margin: 0px 30px;
+    padding: 2px 0px;
 }
-
 .event.listening {
-    background-color:#333333;
-    display:block;
+    background-color: #333333;
+    display: block;
 }
-
 .event.received {
-    background-color:#4B946A;
-    display:none;
+    background-color: #4B946A;
+    display: none;
 }
-
 #deviceready.ready .event.listening { display: none; }
 #deviceready.ready .event.received { display: block; }
-
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
-
 .blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+    animation: fade 3000ms infinite;
+    -webkit-animation: fade 3000ms infinite;
 }
-
 
 @media screen and (prefers-color-scheme: dark) {
     body {
-        background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
+        background-image: linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
     }
+}
+
+/* Fundo Transparente Cinza Escuro */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    overflow-x: hidden; /* Evita rolagem horizontal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Alinhamento no topo */
+    height: 100vh;
+    padding-top: 50px; /* Espaço para o botão do menu */
+}
+
+/* Conteúdo Principal Fixo e Responsivo */
+.conteudo {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px; /* Largura máxima fixa */
+    width: 95%; /* Ajusta para telas menores */
+    margin-top: 10px; /* Espaço logo abaixo do menu */
+}
+
+/* Logo */
+.logo {
+    max-width: 100%; /* Garante que o logo seja responsivo */
+    height: auto;
+    margin-bottom: 15px;
+}
+
+/* Botões Personalizados */
+.botoes-paginas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    grid-template-rows: repeat(3, auto); /* 3 linhas */
+    gap: 15px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.botao-pagina {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.botao-pagina img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.botao-pagina:hover {
+    transform: scale(1.1);
+}
+
+/* Instagram abaixo dos botões */
+.instagram-link {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.instagram-link img {
+    width: 24px; /* Ícone menor */
+    height: 24px;
+}
+
+.instagram-link a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.instagram-link a:hover {
+    color: #006400;
+}
+
+/* Estilo do Menu Lateral */
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s ease;
+    padding-top: 50px;
+    z-index: 1000;
+}
+
+.menu-lateral-aberto {
+    left: 0;
+}
+
+.menu-item {
+    display: block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+}
+
+.menu-item:hover {
+    background-color: #575757;
+}
+
+/* Botão do Menu */
+.btn-menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 1001;
 }
