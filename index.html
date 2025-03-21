@@ -3,205 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#006400">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Controle de Cache -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Início</title>
-    <!-- Usando caminhos absolutos -->
-    <link rel="stylesheet" href="/app_igreja/css/styles.css">
-    <link rel="icon" href="/app_igreja/assets/logo.png" type="image/png">
-    <style>
-        /* Fundo Transparente Cinza Escuro */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            overflow-x: hidden; /* Evita rolagem horizontal */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* Alinhamento no topo */
-            height: 100vh;
-            padding-top: 50px; /* Espaço para o botão do menu */
-        }
-        /* Conteúdo Principal Fixo e Responsivo */
-        .conteudo {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            max-width: 400px; /* Largura máxima fixa */
-            width: 90%; /* Ajusta para telas menores */
-            margin-top: 10px; /* Espaço logo abaixo do menu */
-        }
-        /* Logo */
-        .logo {
-            max-width: 100%; /* Garante que o logo seja responsivo */
-            height: auto;
-            margin-bottom: 15px;
-        }
-        /* Botões Personalizados */
-        .botoes-paginas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Grade responsiva */
-            gap: 15px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .botao-pagina {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .botao-pagina img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .botao-pagina:hover {
-            transform: scale(1.1);
-        }
-        /* Instagram abaixo dos botões */
-        .instagram-link {
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        .instagram-link img {
-            width: 24px; /* Ícone menor */
-            height: 24px;
-        }
-        .instagram-link a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        .instagram-link a:hover {
-            color: #006400;
-        }
-        /* Estilo do Menu Lateral */
-        .menu-lateral {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            color: white;
-            transition: left 0.3s ease;
-            padding-top: 50px;
-            z-index: 1000;
-        }
-        .menu-lateral-aberto {
-            left: 0;
-        }
-        .menu-item {
-            display: block;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid #444;
-        }
-        .menu-item:hover {
-            background-color: #575757;
-        }
-        /* Botão do Menu */
-        .btn-menu {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            z-index: 1001;
-        }
-    </style>
+    <title>Igreja Presbiteriana</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Menu Lateral Escondido -->
-    <div id="menu-lateral" class="menu-lateral">
-        <a href="/app_igreja/index.html" class="menu-item">Início</a>
-        <a href="/app_igreja/pages/contato.html" class="menu-item">Contato</a>
-        <a href="/app_igreja/pages/local.html" class="menu-item">Localização</a>
+    <header>
+        <img src="logo.png" alt="Logo Igreja">
+        <h1>BÍBLICA</h1>
+        <p>IGREJA PRESBITERIANA</p>
+        <p>Aqui você encontrará recursos para estudos bíblicos e muito mais. Explore nossa Bíblia online e conecte-se conosco!</p>
+    </header>
+    <div class="button-grid">
+        <a href="biblia.html" class="button red"><img src="biblia-icon.png" alt="Bíblia">BÍBLIA</a>
+        <a href="fotos.html" class="button yellow"><img src="fotos-icon.png" alt="Fotos">FOTOS</a>
+        <a href="musicas.html" class="button blue"><img src="musicas-icon.png" alt="Músicas">MÚSICAS</a>
+        <a href="eventos.html" class="button green"><img src="eventos-icon.png" alt="Eventos">EVENTOS</a>
+        <a href="doacoes.html" class="button green"><img src="doacoes-icon.png" alt="Doações">DOAÇÕES</a>
+        <a href="contato.html" class="button green"><img src="contato-icon.png" alt="Contato">CONTATO</a>
     </div>
-    <!-- Botão para Abrir o Menu -->
-    <button id="btn-menu" class="btn-menu">☰ Menu</button>
-    <!-- Conteúdo Principal -->
-    <div class="conteudo">
-        <!-- Logo -->
-        <img src="/app_igreja/assets/logo.png" alt="Logo da Igreja" class="logo">
-        <!-- Descrição -->
-        <p style="color: #ccc; font-size: 0.9rem;">
-            Aqui você encontrará recursos para estudos bíblicos e muito mais.
-            Explore nossa Bíblia online e conecte-se conosco!
-        </p>
-        <!-- Botões Personalizados -->
-        <div class="botoes-paginas">
-            <a href="/app_igreja/pages/biblia.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/biblia.png" alt="Bíblia">
-                </div>
-            </a>
-            <a href="/app_igreja/pages/fotos.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/fotos.png" alt="Fotos">
-                </div>
-            </a>
-            <a href="/app_igreja/pages/musicas.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/musicas.png" alt="Músicas">
-                </div>
-            </a>
-            <a href="/app_igreja/pages/eventos.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/eventos.png" alt="Eventos">
-                </div>
-            </a>
-            <a href="/app_igreja/pages/estudos.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/estudos.png" alt="Estudos">
-                </div>
-            </a>
-            <a href="/app_igreja/pages/ofertas.html">
-                <div class="botao-pagina">
-                    <img src="/app_igreja/assets/ofertas.png" alt="Ofertas">
-                </div>
-            </a>
-        </div>
-        <!-- Link do Instagram -->
-        <div class="instagram-link">
-            <img src="/app_igreja/assets/instagram-logo.png" alt="Instagram">
-            <a href="https://www.instagram.com/ipbbiblica/" target="_blank">@ipbbiblica</a>
-        </div>
-    </div>
-    <script>
-        // Alternar Menu Lateral
-        document.getElementById('btn-menu').addEventListener('click', () => {
-            const menuLateral = document.getElementById('menu-lateral');
-            menuLateral.classList.toggle('menu-lateral-aberto');
-        });
-        // Fecha o Menu ao Clicar Fora
-        document.addEventListener('click', (event) => {
-            const menuLateral = document.getElementById('menu-lateral');
-            const btnMenu = document.getElementById('btn-menu');
-            if (!menuLateral.contains(event.target) && !btnMenu.contains(event.target)) {
-                menuLateral.classList.remove('menu-lateral-aberto');
-            }
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 Igreja Presbiteriana. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
