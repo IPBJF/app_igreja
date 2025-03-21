@@ -1,88 +1,73 @@
-/* Estilo Global */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('../assets/background.png'); /* Certifique-se de que o caminho está correto */
+    background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Fixa o background durante a rolagem */
     color: #fff;
     text-align: center;
+}
+
+header {
+    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
-    min-height: 100vh; /* Garante que o body ocupe toda a altura da tela */
 }
 
-.logo {
-    max-width: 80%; /* Ajusta a logo para ocupar até 80% da largura da tela */
-    height: auto;
-    margin-bottom: 20px;
+header img {
+    width: 100px;
 }
 
-h1 {
-    font-size: 2rem;
-    margin-bottom: 30px;
+header h1 {
+    margin: 10px 0;
+    font-size: 24px;
 }
 
-/* Estilo para os Botões em Grade */
-.botoes {
+header p {
+    font-size: 16px;
+}
+
+.button-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Define 2 colunas */
-    grid-template-rows: repeat(3, auto); /* Define 3 linhas */
-    gap: 20px; /* Espaçamento entre os botões */
-    justify-items: center; /* Centraliza os botões horizontalmente */
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ajusta colunas automaticamente */
+    gap: 10px; /* Espaçamento entre botões */
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
-.botao-imagem img {
-    width: 100%; /* Ajusta o tamanho da imagem ao espaço disponível */
-    height: auto;
-    max-width: 120px; /* Define um tamanho máximo para as imagens */
-    border-radius: 10px;
-    transition: transform 0.3s;
-}
-
-.botao-imagem img:hover {
-    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
-}
-
-/* Menu Lateral */
-.menu-lateral {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    transition: left 0.3s;
-    padding-top: 60px;
-}
-
-.menu-lateral .menu-item {
-    display: block;
-    color: white;
-    padding: 15px;
+.button-grid a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    height: 120px; /* Altura fixa para os botões */
+    box-sizing: border-box;
+    color: #fff;
     text-decoration: none;
-    border-bottom: 1px solid #444;
+    border-radius: 10px;
 }
 
-.menu-lateral .menu-item:hover {
-    background-color: #555;
+.button-grid a img {
+    width: 50px;
+    margin-bottom: 10px;
 }
 
-.btn-menu {
+.red { background-color: #e63946; }
+.yellow { background-color: #f4a261; }
+.blue { background-color: #457b9d; }
+.green { background-color: #2a9d8f; }
+
+footer {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
     position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 5px;
+    bottom: 0;
+    width: 100%;
 }
 
-.btn-menu:hover {
-    background-color: #0056b3;
+footer p {
+    margin: 0;
+    font-size: 14px;
 }
