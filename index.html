@@ -5,25 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
     <title>Minha Igreja</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- WebView para carregar o GitHub Pages -->
-    <iframe id="webview" src="https://ipbjf.github.io/app_igreja/"></iframe>
+    <!-- Menu Lateral Escondido -->
+    <div id="menu-lateral" class="menu-lateral">
+        <a href="index.html" class="menu-item">Início</a>
+        <a href="pages/contato.html" class="menu-item">Contato</a>
+        <a href="pages/local.html" class="menu-item">Localização</a>
+    </div>
 
-    <!-- Script para manipular o comportamento offline -->
+    <!-- Botão para Abrir o Menu -->
+    <button id="btn-menu" class="btn-menu">☰ Menu</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <!-- Logo -->
+        <img src="assets/logo.png" alt="Logo da Igreja" class="logo">
+
+        <!-- Título -->
+        <h1>Bem-vindo à Nossa Igreja</h1>
+
+        <!-- Grade de Botões -->
+        <div class="botoes">
+            <a href="pages/biblia.html" class="botao-imagem">
+                <img src="assets/biblia.png" alt="Bíblia">
+            </a>
+            <a href="pages/estudos.html" class="botao-imagem">
+                <img src="assets/estudos.png" alt="Estudos">
+            </a>
+            <a href="pages/eventos.html" class="botao-imagem">
+                <img src="assets/eventos.png" alt="Eventos">
+            </a>
+            <a href="pages/musicas.html" class="botao-imagem">
+                <img src="assets/musicas.png" alt="Músicas">
+            </a>
+            <a href="pages/ofertas.html" class="botao-imagem">
+                <img src="assets/ofertas.png" alt="Ofertas">
+            </a>
+            <a href="pages/fotos.html" class="botao-imagem">
+                <img src="assets/fotos.png" alt="Fotos">
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
     <script>
         // Registra o Service Worker
         if ('serviceWorker' in navigator) {
@@ -41,7 +68,7 @@
         // Verifica se o dispositivo está online
         window.addEventListener('load', () => {
             if (!navigator.onLine) {
-                document.getElementById('webview').src = "pages/biblia.html"; // Redireciona silenciosamente
+                window.location.href = "pages/biblia.html"; // Redireciona silenciosamente
             }
         });
 
