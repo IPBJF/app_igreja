@@ -1,80 +1,213 @@
-body {
+/* Reset básico */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo com Imagem */
+body {
+    background-image: url('../assets/background.png');
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
     color: #fff;
+}
+
+/* Estilo do Conteúdo Principal */
+.conteudo {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
-    height: 100vh; /* Altura total da tela */
-    overflow: hidden; /* Impede rolagem */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-header {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    flex-shrink: 0; /* Impede que o header encolha */
+/* Logo */
+.logo {
+    max-width: 150px;
+    margin: 20px auto;
+    display: block;
 }
 
-header img {
-    width: 80px; /* Reduz o tamanho da imagem para caber melhor */
+/* Título */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #006400; /* Verde escuro */
 }
 
-header h1 {
-    margin: 5px 0;
-    font-size: 20px; /* Reduz o tamanho da fonte */
-}
-
-header p {
-    font-size: 14px; /* Reduz o tamanho da fonte */
-    margin: 5px 0;
-}
-
-.button-grid {
+/* Grade de Botões */
+.botoes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajusta colunas automaticamente */
-    gap: 8px; /* Espaçamento menor entre botões */
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    flex-grow: 1; /* Faz a grade ocupar o espaço disponível */
-    align-content: center; /* Centraliza os botões verticalmente */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
 }
 
-.button-grid a {
+/* Estilo dos Botões com Imagem */
+.botao-imagem {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1 / 1; /* Mantém proporção quadrada */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+
+.botao-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.botao-imagem:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo do Menu Lateral */
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    z-index: 1000;
+}
+
+.menu-lateral-aberto {
+    left: 0;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+}
+
+.menu-item:hover {
+    background-color: #575757;
+}
+
+/* Botão do Menu */
+.btn-menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Estilo do rodapé com Instagram */
+.rodape {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 8px;
-    text-align: center;
-    font-size: 14px; /* Reduz o tamanho da fonte */
-    height: 100px; /* Altura menor para os botões */
-    box-sizing: border-box;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.rodape img {
+    width: 30px;
+    height: 30px;
+}
+
+.rodape a {
     color: #fff;
     text-decoration: none;
-    border-radius: 8px;
+    font-size: 1rem;
 }
 
-.button-grid a img {
-    width: 40px; /* Reduz o tamanho dos ícones */
-    margin-bottom: 5px;
+/* Responsividade */
+@media (max-width: 768px) {
+    .conteudo {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo {
+        max-width: 120px;
+    }
+
+    .botoes {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .botao-imagem {
+        max-width: 150px;
+    }
+
+    .btn-menu {
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .menu-lateral {
+        width: 200px;
+        left: -200px;
+    }
+
+    .menu-lateral-aberto {
+        left: 0;
+    }
+
+    .rodape {
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 
-.red { background-color: #e63946; }
-.yellow { background-color: #f4a261; }
-.blue { background-color: #457b9d; }
-.green { background-color: #2a9d8f; }
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
 
-footer {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 8px;
-    flex-shrink: 0; /* Impede que o footer encolha */
-}
+    .logo {
+        max-width: 100px;
+    }
 
-footer p {
-    margin: 0;
-    font-size: 12px; /* Reduz o tamanho da fonte */
+    .botoes {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 8px;
+    }
+
+    .botao-imagem {
+        max-width: 120px;
+    }
+
+    .btn-menu {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+
+    .rodape {
+        font-size: 0.8rem;
+    }
+
+    .rodape img {
+        width: 25px;
+        height: 25px;
+    }
 }
