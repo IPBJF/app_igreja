@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Igreja Presbiteriana</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    <title>Minha Igreja</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="Logo Igreja">
-        <h1>BÍBLICA</h1>
-        <p>IGREJA PRESBITERIANA</p>
-        <p>Aqui você encontrará recursos para estudos bíblicos e muito mais. Explore nossa Bíblia online e conecte-se conosco!</p>
-    </header>
-    <div class="button-grid">
-        <a href="biblia.html" class="button red">BÍBLIA</a>
-        <a href="fotos.html" class="button yellow">FOTOS</a>
-        <a href="musicas.html" class="button blue">MÚSICAS</a>
-        <a href="eventos.html" class="button green">EVENTOS</a>
-        <a href="doacoes.html" class="button green">DOAÇÕES</a>
-        <a href="contato.html" class="button green">CONTATO</a>
-    </div>
-    <footer>
-        <p>© 2023 Igreja Presbiteriana. Todos os direitos reservados.</p>
-    </footer>
+    <!-- WebView para carregar o GitHub Pages -->
+    <iframe id="webview" src="https://ipbjf.github.io/app_igreja/"></iframe>
+
+    <!-- Script para manipular o comportamento offline -->
+    <script>
+        // Verifica se o dispositivo está online
+        window.addEventListener('load', () => {
+            if (!navigator.onLine) {
+                alert("Você está offline. Redirecionando para a Bíblia.");
+                document.getElementById('webview').src = "pages/biblia.html"; // Redireciona para a Bíblia offline
+            }
+        });
+
+        // Monitora mudanças na conexão
+        window.addEventListener('online', () => {
+            location.reload(); // Recarrega a página quando o dispositivo volta à internet
+        });
+
+        window.addEventListener('offline', () => {
+            alert("Você está offline. Algumas funcionalidades podem estar indisponíveis.");
+        });
+    </script>
 </body>
 </html>
