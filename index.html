@@ -25,11 +25,23 @@
 
     <!-- Script para manipular o comportamento offline -->
     <script>
+        // Registra o Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado com sucesso:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Falha ao registrar o Service Worker:', error);
+                    });
+            });
+        }
+
         // Verifica se o dispositivo está online
         window.addEventListener('load', () => {
             if (!navigator.onLine) {
-                alert("Você está offline. Redirecionando para a Bíblia.");
-                document.getElementById('webview').src = "pages/biblia.html"; // Redireciona para a Bíblia offline
+                document.getElementById('webview').src = "pages/biblia.html"; // Redireciona silenciosamente
             }
         });
 
@@ -39,7 +51,7 @@
         });
 
         window.addEventListener('offline', () => {
-            alert("Você está offline. Algumas funcionalidades podem estar indisponíveis.");
+            // Não exibe alerta, apenas mantém o comportamento
         });
     </script>
 </body>
