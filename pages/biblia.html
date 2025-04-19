@@ -23,7 +23,7 @@
         .livros-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px; /* Aumentado para melhor espaçamento */
+            gap: 15px; /* Espaçamento entre livros */
         }
 
         .livro-item {
@@ -44,10 +44,11 @@
         .capitulos-container {
             display: none;
             margin-top: 10px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
-            border-radius: 5px;
-            border: 1px solid #ccc; /* Borda leve */
+            padding: 20px; /* Aumentado para dar mais espaço interno */
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo mais opaco para destacar */
+            border-radius: 8px;
+            border: 2px solid #666; /* Borda mais pronunciada */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
         }
 
         .capitulos-container.active {
@@ -56,23 +57,23 @@
 
         .capitulos-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas para organização */
+            grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
             gap: 10px; /* Espaçamento entre capítulos */
         }
 
         .capitulo-item {
-            background-color: #4CAF50; /* Verde mais claro */
+            background-color: #333; /* Cinza escuro, como no seu design anterior */
             color: white;
-            padding: 8px; /* Reduzido para botões mais compactos */
+            padding: 8px;
             border-radius: 5px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 0.9rem; /* Tamanho de fonte menor para capítulos */
+            font-size: 0.9rem;
         }
 
         .capitulo-item:hover {
-            background-color: #45a049; /* Verde um pouco mais escuro ao passar o mouse */
+            background-color: #444; /* Cinza um pouco mais claro ao passar o mouse */
         }
     </style>
 </head>
@@ -110,7 +111,7 @@
                     throw new Error(`Erro ao carregar livros.json: ${livrosResponse.status} ${livrosResponse.statusText}`);
                 }
                 const livrosDados = await livrosResponse.json();
-                console.log('Dados de livros.json:', livrosDados); // Log para depuração
+                console.log('Dados de livros.json:', livrosDados);
 
                 // Carrega capitulos.json
                 const capitulosResponse = await fetch('../data/capitulos.json');
@@ -118,22 +119,22 @@
                     throw new Error(`Erro ao carregar capitulos.json: ${capitulosResponse.status} ${capitulosResponse.statusText}`);
                 }
                 const capitulosDados = await capitulosResponse.json();
-                console.log('Dados de capitulos.json:', capitulosDados); // Log para depuração
+                console.log('Dados de capitulos.json:', capitulosDados);
 
                 // Combina as listas de Antigo e Novo Testamento em uma única lista ordenada
                 const ordemLivros = [
                     ...livrosDados["Antigo Testamento"],
                     ...livrosDados["Novo Testamento"]
                 ];
-                console.log('Lista de livros combinada:', ordemLivros); // Log para depuração
+                console.log('Lista de livros combinada:', ordemLivros);
 
                 const livrosContainer = document.getElementById('livros-container');
 
                 // Itera sobre os livros na ordem definida
                 ordemLivros.forEach(livro => {
                     if (capitulosDados[livro]) {
-                        const qtdCapitulos = capitulosDados[livro].length; // Obtém a quantidade de capítulos
-                        console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`); // Log para depuração
+                        const qtdCapitulos = capitulosDados[livro].length;
+                        console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`);
                         const livroDiv = document.createElement('div');
                         livroDiv.classList.add('livro-item');
                         livroDiv.textContent = livro;
@@ -151,26 +152,31 @@
                             capituloItem.textContent = i;
                             capituloItem.addEventListener('click', () => {
                                 const url = `versiculos.html?livro=${encodeURIComponent(livro)}&capitulo=${i}`;
-                                console.log(`Redirecionando para: ${url}`); // Log para depuração
+                                console.log(`Redirecionando para: ${url}`);
                                 window.location.href = url;
                             });
                             capitulosGrid.appendChild(capituloItem);
                         }
 
                         capitulosContainer.appendChild(capitulosGrid);
+
+                        // Ajuste no evento de clique para corrigir o toggle
                         livroDiv.addEventListener('click', () => {
-                            // Fecha outros contêineres de capítulos abertos
+                            const isActive = capitulosContainer.classList.contains('active');
+                            // Fecha todos os contêineres de capítulos abertos
                             document.querySelectorAll('.capitulos-container.active').forEach(container => {
                                 container.classList.remove('active');
                             });
-                            // Abre o contêiner de capítulos do livro clicado
-                            capitulosContainer.classList.toggle('active');
+                            // Se o contêiner atual não estava ativo, abre ele
+                            if (!isActive) {
+                                capitulosContainer.classList.add('active');
+                            }
                         });
 
                         livrosContainer.appendChild(livroDiv);
                         livrosContainer.appendChild(capitulosContainer);
                     } else {
-                        console.log(`Capítulos para o livro ${livro} não encontrados em capitulos.json`); // Log para depuração
+                        console.log(`Capítulos para o livro ${livro} não encontrados em capitulos.json`);
                     }
                 });
 
@@ -182,6 +188,11 @@
                     Array.from(livroItems).forEach(item => {
                         const livroNome = item.textContent.toLowerCase();
                         item.style.display = livroNome.includes(searchTerm) ? 'block' : 'none';
+                        // Se o livro estiver oculto pela busca, também oculta os capítulos
+                        const capitulosContainer = item.nextElementSibling;
+                        if (capitulosContainer && capitulosContainer.classList.contains('capitulos-container')) {
+                            capitulosContainer.style.display = livroNome.includes(searchTerm) ? 'block' : 'none';
+                        }
                     });
                 });
             } catch (error) {
