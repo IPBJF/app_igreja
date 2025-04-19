@@ -181,6 +181,87 @@ h1 {
     background-color: #C13584;
 }
 
+/* Estilo dos Versículos */
+.versiculo {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.versiculo-selecionado {
+    background-color: rgba(0, 100, 0, 0.8);
+}
+
+.numero-versiculo {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+/* Estilo da Navegação de Capítulos */
+.navegacao-capitulos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.navegacao-capitulos button {
+    background-color: #006400;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navegacao-capitulos button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Estilo do Botão Compartilhar */
+.botao-compartilhar {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.botao-compartilhar:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.botao-compartilhar:hover:not(:disabled) {
+    background-color: #1DA851;
+}
+
+/* Estilo do Botão Copiar */
+.botao-copiar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.botao-copiar:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.botao-copiar:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .conteudo {
@@ -223,7 +304,7 @@ h1 {
         gap: 5px;
     }
 
-    .botao-whatsapp, .botao-instagram {
+    .botao-whatsapp, .botao-instagram, .botao-compartilhar, .botao-copiar {
         padding: 8px 15px;
         font-size: 0.9rem;
     }
@@ -266,7 +347,7 @@ h1 {
         height: 25px;
     }
 
-    .botao-whatsapp, .botao-instagram {
+    .botao-whatsapp, .botao-instagram, .botao-compartilhar, .botao-copiar {
         padding: 6px 10px;
         font-size: 0.8rem;
     }
