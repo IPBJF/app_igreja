@@ -3,117 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisar Livros</title>
+    <title>Bíblia</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        /* Fundo Transparente Cinza Escuro */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.8); /* Fundo cinza escuro */
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-            overflow-y: auto; /* Habilita rolagem vertical */
+        .search-container {
+            margin: 20px 0;
+            text-align: center;
         }
-        /* Estilo do Menu Lateral */
-        .menu-lateral {
-            position: fixed;
-            top: 0;
-            left: -250px; /* Esconde o menu fora da tela */
-            width: 250px;
-            height: 100%;
-            background-color: #333; /* Fundo escuro para o menu */
-            color: white;
-            transition: left 0.3s ease;
-            padding-top: 50px;
-            z-index: 1000;
-        }
-        .menu-lateral-aberto {
-            left: 0; /* Mostra o menu */
-        }
-        .menu-item {
-            display: block;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid #444;
-        }
-        .menu-item:hover {
-            background-color: #575757; /* Efeito de hover no menu */
-        }
-        /* Botão do Menu */
-        .btn-menu {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        /* Barra de Pesquisa Rolável */
-        .barra-pesquisa {
-            margin-top: 50px; /* Abaixo do botão do menu */
-            width: calc(100% - 20px);
+
+        .search-container input {
+            width: 80%;
             max-width: 400px;
-        }
-        .barra-pesquisa input {
-            width: 100%;
             padding: 10px;
-            border: 2px solid #fff; /* Borda branca */
-            border-radius: 20px;
             font-size: 1rem;
-            background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
-            color: #fff; /* Texto branco */
-            outline: none; /* Remove o contorno ao focar */
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .barra-pesquisa input::placeholder {
-            color: #ccc; /* Cor do placeholder */
-        }
-        /* Lista de Livros */
-        .livros {
-            background-color: rgba(0, 0, 0, 0.6); /* Fundo único para os livros */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+
+        .livros-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Grade responsiva */
-            gap: 15px; /* Espaçamento entre os livros */
-            justify-content: center; /* Centraliza os livros */
-            width: 90%;
-            max-width: 400px;
-            margin-top: 20px; /* Espaço entre a barra de pesquisa e os livros */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
         }
-        .livro {
-            background-color: transparent; /* Sem fundo individual */
-            color: #fff; /* Texto branco */
+
+        .livro-item {
+            background-color: #006400;
+            color: white;
             padding: 15px;
-            border: 2px solid #fff; /* Borda branca */
-            border-radius: 20px; /* Bordas arredondadas */
+            border-radius: 5px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            font-size: 1rem;
-            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
-        .livro:hover {
-            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada no hover */
-            background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil no hover */
+
+        .livro-item:hover {
+            background-color: #004d00;
         }
-        /* Mensagem de Erro */
-        .mensagem-erro {
-            color: #ff4d4d; /* Vermelho neon para mensagens de erro */
-            font-size: 1.2rem;
+
+        .capitulos-container {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+        }
+
+        .capitulos-container.active {
+            display: block;
+        }
+
+        .capitulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 8px;
+        }
+
+        .capitulo-item {
+            background-color: #006400;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
             text-align: center;
-            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .capitulo-item:hover {
+            background-color: #004d00;
         }
     </style>
 </head>
@@ -122,70 +78,111 @@
     <div id="menu-lateral" class="menu-lateral">
         <a href="../index.html" class="menu-item">Início</a>
         <a href="contato.html" class="menu-item">Contato</a>
-        <a href="local.html" class="menu-item">Local</a>
+        <a href="local.html" class="menu-item">Localização</a>
     </div>
+
     <!-- Botão para Abrir o Menu -->
     <button id="btn-menu" class="btn-menu">☰ Menu</button>
-    <!-- Barra de Pesquisa Rolável -->
-    <div class="barra-pesquisa">
-        <input type="text" id="pesquisa-livro" placeholder="Pesquisar livro..." oninput="filtrarLivros()">
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <h1>Escolha um Livro</h1>
+
+        <!-- Campo de Busca -->
+        <div class="search-container">
+            <input type="text" id="search-livros" placeholder="Pesquisar livro...">
+        </div>
+
+        <!-- Lista de Livros -->
+        <div id="livros-container" class="livros-container"></div>
     </div>
-    <!-- Lista de Livros -->
-    <div class="livros" id="lista-livros"></div>
+
+    <script src="../js/script.js"></script>
     <script>
-        // Função para Carregar Dados do JSON
+        // Lista de livros da Bíblia em ordem (Gênesis a Apocalipse)
+        const ordemLivros = [
+            "Gênesis", "Êxodo", "Levítico", "Números", "Deuteronômio",
+            "Josué", "Juízes", "Rute", "1Samuel", "2Samuel",
+            "1Reis", "2Reis", "1Crônicas", "2Crônicas", "Esdras",
+            "Neemias", "Ester", "Jó", "Salmos", "Provérbios",
+            "Eclesiastes", "Cânticos", "Isaías", "Jeremias", "Lamentações",
+            "Ezequiel", "Daniel", "Oseias", "Joel", "Amós",
+            "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque",
+            "Sofonias", "Ageu", "Zacarias", "Malaquias",
+            "Mateus", "Marcos", "Lucas", "João", "Atos",
+            "Romanos", "1Coríntios", "2Coríntios", "Gálatas", "Efésios",
+            "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timóteo",
+            "2Timóteo", "Tito", "Filemom", "Hebreus", "Tiago",
+            "1Pedro", "2Pedro", "1João", "2João", "3João",
+            "Judas", "Apocalipse"
+        ];
+
         async function carregarLivros() {
             try {
-                // Caminho para o arquivo JSON
-                const response = await fetch('../data/livros.json');
+                const response = await fetch('../biblia.json');
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar biblia.json');
+                }
                 const dados = await response.json();
-                console.log('Dados carregados:', dados); // Log para verificar os dados
-                const listaLivros = document.getElementById('lista-livros');
-                // Obtém os livros do Antigo Testamento
-                const antigoTestamento = dados["Antigo Testamento"];
-                adicionarLivrosNaLista(antigoTestamento, listaLivros);
-                // Obtém os livros do Novo Testamento
-                const novoTestamento = dados["Novo Testamento"];
-                adicionarLivrosNaLista(novoTestamento, listaLivros);
+                const livrosContainer = document.getElementById('livros-container');
+
+                // Ordena os livros conforme a lista ordemLivros
+                ordemLivros.forEach(livro => {
+                    if (dados[livro]) {
+                        const qtdCapitulos = dados[livro];
+                        const livroDiv = document.createElement('div');
+                        livroDiv.classList.add('livro-item');
+                        livroDiv.textContent = livro;
+
+                        // Contêiner para os capítulos
+                        const capitulosContainer = document.createElement('div');
+                        capitulosContainer.classList.add('capitulos-container');
+                        const capitulosGrid = document.createElement('div');
+                        capitulosGrid.classList.add('capitulos-grid');
+
+                        // Adiciona os capítulos
+                        for (let i = 1; i <= qtdCapitulos; i++) {
+                            const capituloItem = document.createElement('div');
+                            capituloItem.classList.add('capitulo-item');
+                            capituloItem.textContent = i;
+                            capituloItem.addEventListener('click', () => {
+                                window.location.href = `versiculos.html?livro=${encodeURIComponent(livro)}&capitulo=${i}`;
+                            });
+                            capitulosGrid.appendChild(capituloItem);
+                        }
+
+                        capitulosContainer.appendChild(capitulosGrid);
+                        livroDiv.addEventListener('click', () => {
+                            // Fecha outros contêineres de capítulos abertos
+                            document.querySelectorAll('.capitulos-container.active').forEach(container => {
+                                container.classList.remove('active');
+                            });
+                            // Abre o contêiner de capítulos do livro clicado
+                            capitulosContainer.classList.toggle('active');
+                        });
+
+                        livrosContainer.appendChild(livroDiv);
+                        livrosContainer.appendChild(capitulosContainer);
+                    }
+                });
+
+                // Função de busca
+                const searchInput = document.getElementById('search-livros');
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const livroItems = livrosContainer.getElementsByClassName('livro-item');
+                    Array.from(livroItems).forEach(item => {
+                        const livroNome = item.textContent.toLowerCase();
+                        item.style.display = livroNome.includes(searchTerm) ? 'block' : 'none';
+                    });
+                });
             } catch (error) {
-                console.error('Erro ao carregar o arquivo JSON:', error);
-                document.getElementById('lista-livros').innerHTML = '<p>Erro ao carregar os livros.</p>';
+                console.error('Erro ao carregar livros:', error);
+                alert('Erro ao carregar a lista de livros. Por favor, tente novamente.');
             }
         }
-        // Função para Adicionar Livros na Lista
-        function adicionarLivrosNaLista(livros, listaLivros) {
-            livros.forEach((livro) => {
-                const div = document.createElement('div');
-                div.className = 'livro';
-                div.textContent = livro;
-                // Redireciona para a página de capítulos ao clicar no livro
-                div.onclick = () => {
-                    const livroCodificado = encodeURIComponent(livro); // Codifica o nome do livro
-                    window.location.href = `capitulos.html?livro=${livroCodificado}`;
-                };
-                listaLivros.appendChild(div);
-            });
-        }
-        // Função para Filtrar Livros
-        function filtrarLivros() {
-            const termoPesquisa = document.getElementById('pesquisa-livro').value.toLowerCase();
-            const todosLivros = document.querySelectorAll('.livro');
-            todosLivros.forEach((livro) => {
-                const nomeLivro = livro.textContent.toLowerCase();
-                if (nomeLivro.includes(termoPesquisa)) {
-                    livro.style.display = 'block'; // Mostra o livro
-                } else {
-                    livro.style.display = 'none'; // Oculta o livro
-                }
-            });
-        }
-        // Inicialização
+
         carregarLivros();
-        // Alternar Menu Lateral
-        document.getElementById('btn-menu').addEventListener('click', () => {
-            const menuLateral = document.getElementById('menu-lateral');
-            menuLateral.classList.toggle('menu-lateral-aberto');
-        });
     </script>
 </body>
 </html>
