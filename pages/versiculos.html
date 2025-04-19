@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Versículos</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <!-- Menu Lateral Escondido -->
     <div id="menu-lateral" class="menu-lateral">
-        <a href="/index.html" class="menu-item">Início</a>
-        <a href="/pages/contato.html" class="menu-item">Contato</a>
-        <a href="/pages/local.html" class="menu-item">Localização</a>
+        <a href="../index.html" class="menu-item">Início</a>
+        <a href="contato.html" class="menu-item">Contato</a>
+        <a href="local.html" class="menu-item">Localização</a>
     </div>
 
     <!-- Botão para Abrir o Menu -->
@@ -27,19 +27,32 @@
         </div>
     </div>
 
-    <script src="/js/script.js"></script>
+    <script src="../js/script.js"></script>
     <script>
         const livroSelecionado = localStorage.getItem('livroSelecionado');
         const capituloSelecionado = localStorage.getItem('capituloSelecionado');
         const qtdCapitulos = parseInt(localStorage.getItem('qtdCapitulos'));
 
+        if (!livroSelecionado || !capituloSelecionado || !qtdCapitulos) {
+            alert('Por favor, selecione um livro e capítulo primeiro.');
+            window.location.href = '../index.html';
+            return;
+        }
+
         document.getElementById('titulo-capitulo').textContent = `${livroSelecionado} ${capituloSelecionado}`;
 
         async function carregarVersiculos() {
             try {
-                const response = await fetch('/data/versiculos.json');
+                const response = await fetch('../data/versiculos.json');
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar versiculos.json');
+                }
                 const dados = await response.json();
                 const versiculos = dados[livroSelecionado][capituloSelecionado];
+                if (!versiculos) {
+                    throw new Error(`Versículos não encontrados para ${livroSelecionado} ${capituloSelecionado}`);
+                }
+
                 const listaVersiculos = document.getElementById('lista-versiculos');
 
                 versiculos.forEach((versiculo, index) => {
@@ -113,6 +126,7 @@
                 btnCompartilhar.insertAdjacentElement('afterend', btnCopiar);
             } catch (error) {
                 console.error('Erro ao carregar versículos:', error);
+                alert('Erro ao carregar os versículos. Por favor, tente novamente.');
             }
         }
 
