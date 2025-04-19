@@ -7,7 +7,7 @@
 
 /* Fundo com Imagem */
 body {
-    background-image: url('../assets/background.png');
+    background-image: url('/assets/background.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -136,6 +136,51 @@ h1 {
     font-size: 1rem;
 }
 
+/* Estilo do Botão WhatsApp */
+.botao-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.botao-whatsapp img {
+    width: 30px;
+    height: 30px;
+}
+
+.botao-whatsapp:hover {
+    background-color: #1DA851;
+}
+
+/* Estilo do Botão Instagram */
+.botao-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #E1306C;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.botao-instagram img {
+    width: 30px;
+    height: 30px;
+}
+
+.botao-instagram:hover {
+    background-color: #C13584;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .conteudo {
@@ -177,6 +222,16 @@ h1 {
         flex-direction: column;
         gap: 5px;
     }
+
+    .botao-whatsapp, .botao-instagram {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .botao-whatsapp img, .botao-instagram img {
+        width: 25px;
+        height: 25px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -209,5 +264,15 @@ h1 {
     .rodape img {
         width: 25px;
         height: 25px;
+    }
+
+    .botao-whatsapp, .botao-instagram {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .botao-whatsapp img, .botao-instagram img {
+        width: 20px;
+        height: 20px;
     }
 }
