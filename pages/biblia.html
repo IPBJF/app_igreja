@@ -23,29 +23,31 @@
         .livros-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
+            gap: 15px; /* Aumentado para melhor espaçamento */
         }
 
         .livro-item {
-            background-color: #006400;
-            color: white;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
+            color: #333; /* Texto preto */
             padding: 15px;
             border-radius: 5px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            border: 1px solid #ccc; /* Borda leve para destacar */
         }
 
         .livro-item:hover {
-            background-color: #004d00;
+            background-color: rgba(255, 255, 255, 0.9); /* Leve mudança ao passar o mouse */
         }
 
         .capitulos-container {
             display: none;
             margin-top: 10px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
             border-radius: 5px;
+            border: 1px solid #ccc; /* Borda leve */
         }
 
         .capitulos-container.active {
@@ -54,22 +56,23 @@
 
         .capitulos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas para organização */
+            gap: 10px; /* Espaçamento entre capítulos */
         }
 
         .capitulo-item {
-            background-color: #006400;
+            background-color: #4CAF50; /* Verde mais claro */
             color: white;
-            padding: 10px;
+            padding: 8px; /* Reduzido para botões mais compactos */
             border-radius: 5px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 0.9rem; /* Tamanho de fonte menor para capítulos */
         }
 
         .capitulo-item:hover {
-            background-color: #004d00;
+            background-color: #45a049; /* Verde um pouco mais escuro ao passar o mouse */
         }
     </style>
 </head>
