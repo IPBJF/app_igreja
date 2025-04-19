@@ -37,6 +37,13 @@ h1 {
     color: #006400; /* Verde escuro */
 }
 
+/* Parágrafo */
+p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
 /* Grade de Botões */
 .botoes {
     display: grid;
@@ -146,7 +153,8 @@ h1 {
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-    margin-top: 20px;
+    margin: 10px;
+    font-size: 1rem;
 }
 
 .botao-whatsapp img {
@@ -168,8 +176,8 @@ h1 {
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-    margin-top: 20px;
-    margin-left: 10px;
+    margin: 10px;
+    font-size: 1rem;
 }
 
 .botao-instagram img {
@@ -272,6 +280,10 @@ h1 {
         font-size: 1.5rem;
     }
 
+    p {
+        font-size: 0.9rem;
+    }
+
     .logo {
         max-width: 120px;
     }
@@ -318,6 +330,10 @@ h1 {
 @media (max-width: 480px) {
     h1 {
         font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 0.8rem;
     }
 
     .logo {
