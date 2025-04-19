@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versículos</title>
+    <title>Livros</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -19,118 +19,34 @@
 
     <!-- Conteúdo Principal -->
     <div class="conteudo">
-        <h1 id="titulo-capitulo"></h1>
-        <div id="lista-versiculos"></div>
-        <div class="navegacao-capitulos">
-            <button id="btn-retroceder" disabled>Retroceder</button>
-            <button id="btn-avancar" disabled>Avançar</button>
-        </div>
+        <h1 id="titulo-livro"></h1>
+        <div id="lista-capitulos" class="botoes"></div>
     </div>
 
     <script src="../js/script.js"></script>
     <script>
         const livroSelecionado = localStorage.getItem('livroSelecionado');
-        const capituloSelecionado = localStorage.getItem('capituloSelecionado');
         const qtdCapitulos = parseInt(localStorage.getItem('qtdCapitulos'));
 
-        if (!livroSelecionado || !capituloSelecionado || !qtdCapitulos) {
-            alert('Por favor, selecione um livro e capítulo primeiro.');
-            window.location.href = '../index.html';
+        if (!livroSelecionado || !qtdCapitulos) {
+            alert('Por favor, selecione um livro primeiro.');
+            window.location.href = 'biblia.html';
             return;
         }
 
-        document.getElementById('titulo-capitulo').textContent = `${livroSelecionado} ${capituloSelecionado}`;
+        document.getElementById('titulo-livro').textContent = livroSelecionado;
 
-        async function carregarVersiculos() {
-            try {
-                const response = await fetch('../data/versiculos.json');
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar versiculos.json');
-                }
-                const dados = await response.json();
-                const versiculos = dados[livroSelecionado][capituloSelecionado];
-                if (!versiculos) {
-                    throw new Error(`Versículos não encontrados para ${livroSelecionado} ${capituloSelecionado}`);
-                }
-
-                const listaVersiculos = document.getElementById('lista-versiculos');
-
-                versiculos.forEach((versiculo, index) => {
-                    const divVersiculo = document.createElement('div');
-                    divVersiculo.classList.add('versiculo');
-                    divVersiculo.innerHTML = `<span class="numero-versiculo">${index + 1}</span> ${versiculo}`;
-                    divVersiculo.addEventListener('click', () => {
-                        document.querySelectorAll('.versiculo').forEach(v => v.classList.remove('versiculo-selecionado'));
-                        divVersiculo.classList.add('versiculo-selecionado');
-                        document.getElementById('btn-compartilhar').disabled = false;
-                        document.getElementById('btn-copiar-versiculo').disabled = false;
-                    });
-                    listaVersiculos.appendChild(divVersiculo);
-                });
-
-                const btnRetroceder = document.getElementById('btn-retroceder');
-                const btnAvancar = document.getElementById('btn-avancar');
-                const capituloAtual = parseInt(capituloSelecionado);
-
-                if (capituloAtual > 1) {
-                    btnRetroceder.disabled = false;
-                    btnRetroceder.addEventListener('click', () => {
-                        localStorage.setItem('capituloSelecionado', capituloAtual - 1);
-                        window.location.reload();
-                    });
-                }
-
-                if (capituloAtual < qtdCapitulos) {
-                    btnAvancar.disabled = false;
-                    btnAvancar.addEventListener('click', () => {
-                        localStorage.setItem('capituloSelecionado', capituloAtual + 1);
-                        window.location.reload();
-                    });
-                }
-
-                const btnCompartilhar = document.createElement('button');
-                btnCompartilhar.id = 'btn-compartilhar';
-                btnCompartilhar.classList.add('botao-compartilhar');
-                btnCompartilhar.textContent = 'Compartilhar Versículo';
-                btnCompartilhar.disabled = true;
-                btnCompartilhar.addEventListener('click', () => {
-                    const versiculoSelecionado = document.querySelector('.versiculo-selecionado');
-                    if (versiculoSelecionado) {
-                        const numeroVersiculo = versiculoSelecionado.querySelector('.numero-versiculo').textContent;
-                        const textoVersiculo = versiculoSelecionado.textContent.replace(numeroVersiculo, '').trim();
-                        const texto = `${livroSelecionado} ${capituloSelecionado}:${numeroVersiculo} - ${textoVersiculo}`;
-                        const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
-                        window.open(url, '_blank');
-                    }
-                });
-
-                const btnCopiar = document.createElement('button');
-                btnCopiar.id = 'btn-copiar-versiculo';
-                btnCopiar.classList.add('botao-copiar');
-                btnCopiar.textContent = 'Copiar Versículo';
-                btnCopiar.disabled = true;
-                btnCopiar.addEventListener('click', () => {
-                    const versiculoSelecionado = document.querySelector('.versiculo-selecionado');
-                    if (versiculoSelecionado) {
-                        const numeroVersiculo = versiculoSelecionado.querySelector('.numero-versiculo').textContent;
-                        const textoVersiculo = versiculoSelecionado.textContent.replace(numeroVersiculo, '').trim();
-                        const texto = `${livroSelecionado} ${capituloSelecionado}:${numeroVersiculo} - ${textoVersiculo}`;
-                        navigator.clipboard.writeText(texto).then(() => {
-                            alert('Versículo copiado para a área de transferência!');
-                        });
-                    }
-                });
-
-                const navegacaoCapitulos = document.querySelector('.navegacao-capitulos');
-                navegacaoCapitulos.insertAdjacentElement('afterend', btnCompartilhar);
-                btnCompartilhar.insertAdjacentElement('afterend', btnCopiar);
-            } catch (error) {
-                console.error('Erro ao carregar versículos:', error);
-                alert('Erro ao carregar os versículos. Por favor, tente novamente.');
-            }
+        const listaCapitulos = document.getElementById('lista-capitulos');
+        for (let i = 1; i <= qtdCapitulos; i++) {
+            const botaoCapitulo = document.createElement('button');
+            botaoCapitulo.textContent = `Capítulo ${i}`;
+            botaoCapitulo.classList.add('botao-capitulo');
+            botaoCapitulo.addEventListener('click', () => {
+                localStorage.setItem('capituloSelecionado', i);
+                window.location.href = 'versiculos.html';
+            });
+            listaCapitulos.appendChild(botaoCapitulo);
         }
-
-        carregarVersiculos();
     </script>
 </body>
 </html>
