@@ -41,28 +41,27 @@
             background-color: rgba(255, 255, 255, 0.9); /* Leve mudança ao passar o mouse */
         }
 
-        .capitulos-container {
-            display: none;
-            margin-top: 10px;
-            padding: 20px; /* Aumentado para dar mais espaço interno */
-            background-color: rgba(255, 255, 255, 0.9); /* Fundo mais opaco para destacar */
-            border-radius: 8px;
-            border: 2px solid #666; /* Borda mais pronunciada */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
-        }
-
-        .capitulos-container.active {
-            display: block;
+        .livro-item.active {
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo mais opaco quando ativo */
         }
 
         .capitulos-grid {
+            display: none; /* Inicialmente escondido */
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo mais opaco */
+            border-radius: 5px;
+            border: 1px solid #666; /* Borda para destacar */
+        }
+
+        .capitulos-grid.active {
             display: grid;
             grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
             gap: 10px; /* Espaçamento entre capítulos */
         }
 
         .capitulo-item {
-            background-color: #333; /* Cinza escuro, como no seu design anterior */
+            background-color: #333; /* Cinza escuro */
             color: white;
             padding: 8px;
             border-radius: 5px;
@@ -73,7 +72,7 @@
         }
 
         .capitulo-item:hover {
-            background-color: #444; /* Cinza um pouco mais claro ao passar o mouse */
+            background-color: #444; /* Cinza mais claro ao passar o mouse */
         }
     </style>
 </head>
@@ -135,13 +134,17 @@
                     if (capitulosDados[livro]) {
                         const qtdCapitulos = capitulosDados[livro].length;
                         console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`);
+
+                        // Cria o contêiner do livro
                         const livroDiv = document.createElement('div');
                         livroDiv.classList.add('livro-item');
-                        livroDiv.textContent = livro;
 
-                        // Contêiner para os capítulos
-                        const capitulosContainer = document.createElement('div');
-                        capitulosContainer.classList.add('capitulos-container');
+                        // Adiciona o nome do livro
+                        const livroNome = document.createElement('div');
+                        livroNome.textContent = livro;
+                        livroDiv.appendChild(livroNome);
+
+                        // Cria o contêiner de capítulos (dentro do livroDiv)
                         const capitulosGrid = document.createElement('div');
                         capitulosGrid.classList.add('capitulos-grid');
 
@@ -158,23 +161,27 @@
                             capitulosGrid.appendChild(capituloItem);
                         }
 
-                        capitulosContainer.appendChild(capitulosGrid);
+                        livroDiv.appendChild(capitulosGrid);
+                        livrosContainer.appendChild(livroDiv);
 
-                        // Ajuste no evento de clique para corrigir o toggle
-                        livroDiv.addEventListener('click', () => {
-                            const isActive = capitulosContainer.classList.contains('active');
+                        // Evento de clique para toggle dos capítulos
+                        livroNome.addEventListener('click', () => {
+                            const isActive = capitulosGrid.classList.contains('active');
+
                             // Fecha todos os contêineres de capítulos abertos
-                            document.querySelectorAll('.capitulos-container.active').forEach(container => {
-                                container.classList.remove('active');
+                            document.querySelectorAll('.capitulos-grid.active').forEach(grid => {
+                                grid.classList.remove('active');
                             });
+                            document.querySelectorAll('.livro-item.active').forEach(item => {
+                                item.classList.remove('active');
+                            });
+
                             // Se o contêiner atual não estava ativo, abre ele
                             if (!isActive) {
-                                capitulosContainer.classList.add('active');
+                                capitulosGrid.classList.add('active');
+                                livroDiv.classList.add('active');
                             }
                         });
-
-                        livrosContainer.appendChild(livroDiv);
-                        livrosContainer.appendChild(capitulosContainer);
                     } else {
                         console.log(`Capítulos para o livro ${livro} não encontrados em capitulos.json`);
                     }
@@ -186,12 +193,17 @@
                     const searchTerm = searchInput.value.toLowerCase();
                     const livroItems = livrosContainer.getElementsByClassName('livro-item');
                     Array.from(livroItems).forEach(item => {
-                        const livroNome = item.textContent.toLowerCase();
-                        item.style.display = livroNome.includes(searchTerm) ? 'block' : 'none';
-                        // Se o livro estiver oculto pela busca, também oculta os capítulos
-                        const capitulosContainer = item.nextElementSibling;
-                        if (capitulosContainer && capitulosContainer.classList.contains('capitulos-container')) {
-                            capitulosContainer.style.display = livroNome.includes(searchTerm) ? 'block' : 'none';
+                        const livroNome = item.firstChild.textContent.toLowerCase();
+                        const isVisible = livroNome.includes(searchTerm);
+                        item.style.display = isVisible ? 'block' : 'none';
+
+                        // Se o livro for oculto pela busca, também oculta os capítulos
+                        const capitulosGrid = item.querySelector('.capitulos-grid');
+                        if (capitulosGrid) {
+                            if (!isVisible) {
+                                capitulosGrid.classList.remove('active');
+                                item.classList.remove('active');
+                            }
                         }
                     });
                 });
