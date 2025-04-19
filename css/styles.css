@@ -23,6 +23,14 @@ body {
     text-align: center;
 }
 
+/* Fundo Transparente para Texto */
+.fundo-transparente {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
 /* Logo */
 .logo {
     max-width: 150px;
@@ -276,6 +284,10 @@ p {
         padding: 10px;
     }
 
+    .fundo-transparente {
+        padding: 15px;
+    }
+
     h1 {
         font-size: 1.5rem;
     }
@@ -328,6 +340,10 @@ p {
 }
 
 @media (max-width: 480px) {
+    .fundo-transparente {
+        padding: 10px;
+    }
+
     h1 {
         font-size: 1.2rem;
     }
