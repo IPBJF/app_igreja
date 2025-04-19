@@ -146,7 +146,9 @@
                             capituloItem.classList.add('capitulo-item');
                             capituloItem.textContent = i;
                             capituloItem.addEventListener('click', () => {
-                                window.location.href = `versiculos.html?livro=${encodeURIComponent(livro)}&capitulo=${i}`;
+                                const url = `versiculos.html?livro=${encodeURIComponent(livro)}&capitulo=${i}`;
+                                console.log(`Redirecionando para: ${url}`); // Log para depuração
+                                window.location.href = url;
                             });
                             capitulosGrid.appendChild(capituloItem);
                         }
