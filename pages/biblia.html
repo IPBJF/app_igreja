@@ -99,43 +99,38 @@
 
     <script src="../js/script.js"></script>
     <script>
-        // Lista de livros da Bíblia em ordem (Gênesis a Apocalipse)
-        const ordemLivros = [
-            "Gênesis", "Êxodo", "Levítico", "Números", "Deuteronômio",
-            "Josué", "Juízes", "Rute", "1Samuel", "2Samuel",
-            "1Reis", "2Reis", "1Crônicas", "2Crônicas", "Esdras",
-            "Neemias", "Ester", "Jó", "Salmos", "Provérbios",
-            "Eclesiastes", "Cânticos", "Isaías", "Jeremias", "Lamentações",
-            "Ezequiel", "Daniel", "Oseias", "Joel", "Amós",
-            "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque",
-            "Sofonias", "Ageu", "Zacarias", "Malaquias",
-            "Mateus", "Marcos", "Lucas", "João", "Atos",
-            "Romanos", "1Coríntios", "2Coríntios", "Gálatas", "Efésios",
-            "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timóteo",
-            "2Timóteo", "Tito", "Filemom", "Hebreus", "Tiago",
-            "1Pedro", "2Pedro", "1João", "2João", "3João",
-            "Judas", "Apocalipse"
-        ];
-
         async function carregarLivros() {
             try {
-                // Caminho corrigido para o arquivo livros.json
-                const caminhoJson = '../data/livros.json';
-                console.log('Tentando carregar:', caminhoJson); // Log para depuração
-                const response = await fetch(caminhoJson);
-                if (!response.ok) {
-                    throw new Error(`Erro ao carregar livros.json: ${response.status} ${response.statusText}`);
+                // Carrega livros.json
+                const livrosResponse = await fetch('../data/livros.json');
+                if (!livrosResponse.ok) {
+                    throw new Error(`Erro ao carregar livros.json: ${livrosResponse.status} ${livrosResponse.statusText}`);
                 }
-                const dados = await response.json();
-                console.log('Dados carregados de livros.json:', dados); // Log para verificar os dados
+                const livrosDados = await livrosResponse.json();
+                console.log('Dados de livros.json:', livrosDados); // Log para depuração
+
+                // Carrega capitulos.json
+                const capitulosResponse = await fetch('../data/capitulos.json');
+                if (!capitulosResponse.ok) {
+                    throw new Error(`Erro ao carregar capitulos.json: ${capitulosResponse.status} ${capitulosResponse.statusText}`);
+                }
+                const capitulosDados = await capitulosResponse.json();
+                console.log('Dados de capitulos.json:', capitulosDados); // Log para depuração
+
+                // Combina as listas de Antigo e Novo Testamento em uma única lista ordenada
+                const ordemLivros = [
+                    ...livrosDados["Antigo Testamento"],
+                    ...livrosDados["Novo Testamento"]
+                ];
+                console.log('Lista de livros combinada:', ordemLivros); // Log para depuração
 
                 const livrosContainer = document.getElementById('livros-container');
 
-                // Ordena os livros conforme a lista ordemLivros
+                // Itera sobre os livros na ordem definida
                 ordemLivros.forEach(livro => {
-                    if (dados[livro]) {
-                        const qtdCapitulos = dados[livro];
-                        console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`); // Log para verificar cada livro
+                    if (capitulosDados[livro]) {
+                        const qtdCapitulos = capitulosDados[livro].length; // Obtém a quantidade de capítulos
+                        console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`); // Log para depuração
                         const livroDiv = document.createElement('div');
                         livroDiv.classList.add('livro-item');
                         livroDiv.textContent = livro;
@@ -172,7 +167,7 @@
                         livrosContainer.appendChild(livroDiv);
                         livrosContainer.appendChild(capitulosContainer);
                     } else {
-                        console.log(`Livro ${livro} não encontrado no livros.json`); // Log para depuração
+                        console.log(`Capítulos para o livro ${livro} não encontrados em capitulos.json`); // Log para depuração
                     }
                 });
 
