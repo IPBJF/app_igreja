@@ -186,19 +186,11 @@
         // Função para Carregar Dados do JSON
         async function carregarVersiculos() {
             try {
-                // Caminho para o arquivo JSON
-                const response = await fetch('../data/versiculos.json');
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar versiculos.json');
-                }
-                const dados = await response.json();
-
-                console.log('Versículos carregados:', dados); // Log para verificar os dados
-
                 // Obtém o livro e capítulo selecionados da URL
                 let livroSelecionado = obterParametroURL('livro');
                 let capituloSelecionado = parseInt(obterParametroURL('capitulo'), 10);
 
+                console.log('URL atual:', window.location.href); // Log para depuração
                 console.log('Livro selecionado:', livroSelecionado); // Log para verificar o livro
                 console.log('Capítulo selecionado:', capituloSelecionado); // Log para verificar o capítulo
 
@@ -206,9 +198,21 @@
                 const listaVersiculos = document.getElementById('lista-versiculos');
 
                 if (!livroSelecionado || !capituloSelecionado) {
+                    console.log('Parâmetros livro ou capítulo ausentes na URL');
                     tituloVersiculos.textContent = 'Nenhum versículo encontrado.';
                     return;
                 }
+
+                // Caminho para o arquivo JSON
+                const caminhoJson = '../data/versiculos.json';
+                console.log('Tentando carregar:', caminhoJson); // Log para depuração
+                const response = await fetch(caminhoJson);
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar versiculos.json: ${response.status} ${response.statusText}`);
+                }
+                const dados = await response.json();
+
+                console.log('Versículos carregados:', dados); // Log para verificar os dados
 
                 // Procura o livro e capítulo no JSON
                 if (dados[livroSelecionado] && dados[livroSelecionado][capituloSelecionado]) {
@@ -250,6 +254,7 @@
                     // Configura os botões de navegação
                     configurarBotoesNavegacao(livroSelecionado, capituloSelecionado, dados);
                 } else {
+                    console.log(`Versículos não encontrados para ${livroSelecionado} ${capituloSelecionado}`);
                     tituloVersiculos.textContent = 'Versículos não encontrados.';
                 }
             } catch (error) {
