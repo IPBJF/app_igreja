@@ -119,17 +119,23 @@
 
         async function carregarLivros() {
             try {
-                const response = await fetch('../biblia.json');
+                // Caminho corrigido para o arquivo livros.json
+                const caminhoJson = '../data/livros.json';
+                console.log('Tentando carregar:', caminhoJson); // Log para depuração
+                const response = await fetch(caminhoJson);
                 if (!response.ok) {
-                    throw new Error('Erro ao carregar biblia.json');
+                    throw new Error(`Erro ao carregar livros.json: ${response.status} ${response.statusText}`);
                 }
                 const dados = await response.json();
+                console.log('Dados carregados de livros.json:', dados); // Log para verificar os dados
+
                 const livrosContainer = document.getElementById('livros-container');
 
                 // Ordena os livros conforme a lista ordemLivros
                 ordemLivros.forEach(livro => {
                     if (dados[livro]) {
                         const qtdCapitulos = dados[livro];
+                        console.log(`Livro: ${livro}, Capítulos: ${qtdCapitulos}`); // Log para verificar cada livro
                         const livroDiv = document.createElement('div');
                         livroDiv.classList.add('livro-item');
                         livroDiv.textContent = livro;
@@ -165,6 +171,8 @@
 
                         livrosContainer.appendChild(livroDiv);
                         livrosContainer.appendChild(capitulosContainer);
+                    } else {
+                        console.log(`Livro ${livro} não encontrado no livros.json`); // Log para depuração
                     }
                 });
 
