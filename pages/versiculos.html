@@ -6,11 +6,10 @@
     <title>Versículos</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        /* Fundo Transparente Cinza Escuro */
+        /* Estilo do Body */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.8); /* Fundo transparente */
             color: #006400; /* Verde escuro */
         }
 
@@ -37,6 +36,7 @@
             text-align: justify; /* Alinha o texto uniformemente */
             line-height: 1.6; /* Espaçamento entre linhas */
             white-space: normal; /* Permite quebras naturais de linha */
+            font-size: 16px; /* Tamanho inicial da fonte */
         }
 
         .versiculo {
@@ -98,6 +98,28 @@
         }
 
         .botao-compartilhar:hover:not(:disabled) {
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+        }
+
+        /* Controles de Fonte */
+        .controles-fonte {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .controles-fonte button {
+            background-color: #006400; /* Verde escuro */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .controles-fonte button:hover {
             background-color: #004d00; /* Verde mais escuro ao passar o mouse */
         }
 
@@ -171,8 +193,14 @@
             <button id="btn-avancar" disabled>Avançar</button>
         </div>
 
+        <!-- Controles de Fonte -->
+        <div class="controles-fonte">
+            <button id="btn-aumentar-fonte">Aumentar Fonte</button>
+            <button id="btn-diminuir-fonte">Diminuir Fonte</button>
+        </div>
+
         <!-- Botão de Compartilhar -->
-        <button id="btn-compartilhar" class="botao-compartilhar" disabled>Compartilhar Versículo</button>
+        <button id="btn-compartilhar" class="botao-compartilhar" disabled>Compartilhar Versículo(s)</button>
     </div>
 
     <script>
@@ -227,23 +255,26 @@
                         span.className = 'versiculo';
                         span.textContent = `${index + 1} ${versiculo} `; // Adiciona espaço após o versículo
 
-                        // Permite selecionar o versículo
+                        // Permite selecionar múltiplos versículos
                         span.onclick = () => {
-                            // Remove o destaque de outros versículos
-                            document.querySelectorAll('.versiculo').forEach((v) => {
-                                v.classList.remove('versiculo-selecionado');
-                            });
+                            span.classList.toggle('versiculo-selecionado');
 
-                            // Destaca o versículo clicado
-                            span.classList.add('versiculo-selecionado');
-
-                            // Habilita o botão de compartilhar
+                            // Verifica se há versículos selecionados para habilitar o botão de compartilhar
+                            const versiculosSelecionados = document.querySelectorAll('.versiculo-selecionado');
                             const btnCompartilhar = document.getElementById('btn-compartilhar');
-                            btnCompartilhar.disabled = false;
+                            btnCompartilhar.disabled = versiculosSelecionados.length === 0;
 
-                            // Define o texto a ser compartilhado
+                            // Define o texto a ser compartilhado com base nos versículos selecionados
                             btnCompartilhar.onclick = () => {
-                                const textoCompartilhar = `${livroSelecionado} ${capituloSelecionado}:${index + 1} - ${versiculo}`;
+                                let textoCompartilhar = '';
+                                versiculosSelecionados.forEach((v, i) => {
+                                    const numeroVersiculo = v.textContent.split(' ')[0]; // Obtém o número do versículo
+                                    const textoVersiculo = v.textContent.slice(numeroVersiculo.length + 1); // Remove o número do texto
+                                    textoCompartilhar += `${livroSelecionado} ${capituloSelecionado}:${numeroVersiculo} - ${textoVersiculo}`;
+                                    if (i < versiculosSelecionados.length - 1) {
+                                        textoCompartilhar += '\n';
+                                    }
+                                });
                                 compartilharTexto(textoCompartilhar);
                             };
                         };
@@ -253,6 +284,9 @@
 
                     // Configura os botões de navegação
                     configurarBotoesNavegacao(livroSelecionado, capituloSelecionado, dados);
+
+                    // Configura os controles de fonte
+                    configurarControlesFonte();
                 } else {
                     console.log(`Versículos não encontrados para ${livroSelecionado} ${capituloSelecionado}`);
                     tituloVersiculos.textContent = 'Versículos não encontrados.';
@@ -292,6 +326,25 @@
             } else {
                 btnAvancar.disabled = true;
             }
+        }
+
+        // Configura os controles de fonte
+        function configurarControlesFonte() {
+            const listaVersiculos = document.getElementById('lista-versiculos');
+            const btnAumentarFonte = document.getElementById('btn-aumentar-fonte');
+            const btnDiminuirFonte = document.getElementById('btn-diminuir-fonte');
+
+            btnAumentarFonte.onclick = () => {
+                const fontSizeAtual = parseFloat(getComputedStyle(listaVersiculos).fontSize);
+                listaVersiculos.style.fontSize = `${fontSizeAtual + 2}px`;
+            };
+
+            btnDiminuirFonte.onclick = () => {
+                const fontSizeAtual = parseFloat(getComputedStyle(listaVersiculos).fontSize);
+                if (fontSizeAtual > 10) { // Limite mínimo para evitar fonte muito pequena
+                    listaVersiculos.style.fontSize = `${fontSizeAtual - 2}px`;
+                }
+            };
         }
 
         // Função para Compartilhar Texto
