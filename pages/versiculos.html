@@ -6,30 +6,23 @@
     <title>Versículos</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        /* Estilo do Body - Fundo Atraente */
+        /* Fundo Transparente Cinza Escuro */
         body {
             margin: 0;
-            font-family: 'Georgia', serif;
-            background: linear-gradient(to bottom right, #e6f0fa, #f5f5f5) !important; /* Gradiente suave azul claro para cinza claro */
-            color: #333;
-            box-shadow: none !important; /* Remove qualquer sombra */
-        }
-
-        /* Garantir que nenhum elemento pai aplique sombra ou fundo indesejado */
-        html, div, section {
-            background: transparent !important;
-            box-shadow: none !important;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo cinza escuro semi-transparente */
+            color: #006400; /* Verde escuro */
         }
 
         /* Conteúdo Principal */
         .conteudo {
             padding: 20px;
             max-width: 800px;
-            margin: 40px auto;
-            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco quase opaco */
-            border-radius: 15px;
-            border: 2px solid #d1e0e0; /* Borda suave em tom pastel */
-            box-shadow: none !important; /* Remove sombra */
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            color: #333; /* Texto preto para melhor contraste no fundo branco */
         }
 
         /* Controles de Fonte no Topo */
@@ -41,7 +34,7 @@
         }
 
         .controles-fonte button {
-            background-color: #4a4a4a;
+            background-color: #006400; /* Verde escuro */
             color: white;
             border: none;
             padding: 8px 12px;
@@ -52,44 +45,33 @@
         }
 
         .controles-fonte button:hover {
-            background-color: #333;
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
         }
 
         /* Título */
         h1 {
             text-align: center;
-            color: #4a4a4a;
-            margin-bottom: 30px;
-            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-            font-weight: 400;
-            font-size: 2rem;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #4a4a4a, #6b7280); /* Gradiente no título */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #006400; /* Verde escuro */
+            margin-bottom: 20px;
         }
 
         /* Versículos Contínuos */
         .versiculos-container {
-            text-align: justify;
-            line-height: 1.8;
-            white-space: normal;
-            font-size: 16px;
-            color: #444;
-            padding: 15px;
-            background-color: #f9f9f9; /* Fundo leve para os versículos */
-            border-radius: 10px;
+            text-align: justify; /* Alinha o texto uniformemente */
+            line-height: 1.6; /* Espaçamento entre linhas */
+            white-space: normal; /* Permite quebras naturais de linha */
+            font-size: 16px; /* Tamanho inicial da fonte */
         }
 
         .versiculo {
-            display: inline;
-            margin-right: 10px;
-            cursor: pointer;
+            display: inline; /* Exibe os versículos continuamente */
+            margin-right: 10px; /* Espaçamento entre os versículos */
+            cursor: pointer; /* Cursor de mão para indicar interação */
         }
 
         /* Destacar Versículo Selecionado */
         .versiculo-selecionado {
-            background-color: rgba(255, 215, 0, 0.3);
+            background-color: rgba(255, 255, 0, 0.5); /* Amarelo semi-transparente */
             border-radius: 5px;
             padding: 2px 5px;
         }
@@ -98,70 +80,67 @@
         .botoes-navegacao {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .botoes-navegacao button {
-            background-color: #4a4a4a;
+            background-color: #006400; /* Verde escuro */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
         }
 
         .botoes-navegacao button:disabled {
-            background-color: #cccccc;
+            background-color: #555;
             cursor: not-allowed;
         }
 
         .botoes-navegacao button:hover:not(:disabled) {
-            background-color: #333;
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
         }
 
         /* Botão de Compartilhar */
         .botao-compartilhar {
-            background-color: #4a4a4a;
+            background-color: #006400; /* Verde escuro */
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: 30px;
+            margin-top: 20px;
             display: block;
             width: 100%;
-            transition: background-color 0.3s ease;
         }
 
         .botao-compartilhar:disabled {
-            background-color: #cccccc;
+            background-color: #555;
             cursor: not-allowed;
         }
 
         .botao-compartilhar:hover:not(:disabled) {
-            background-color: #333;
+            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
         }
 
         /* Estilo do Menu Lateral */
         .menu-lateral {
             position: fixed;
             top: 0;
-            left: -250px;
+            left: -250px; /* Esconde o menu fora da tela */
             width: 250px;
             height: 100%;
-            background-color: #2a2a2a;
+            background-color: #333;
             color: white;
             transition: left 0.3s ease;
             padding-top: 60px;
             z-index: 1000;
-            box-shadow: none !important;
         }
 
         .menu-lateral-aberto {
-            left: 0;
+            left: 0; /* Mostra o menu */
         }
 
         .menu-item {
@@ -170,11 +149,10 @@
             color: white;
             text-decoration: none;
             border-bottom: 1px solid #444;
-            font-family: 'Georgia', serif;
         }
 
         .menu-item:hover {
-            background-color: #3a3a3a;
+            background-color: #575757;
         }
 
         /* Botão do Menu */
@@ -182,15 +160,13 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            background-color: #2a2a2a;
+            background-color: #333;
             color: white;
             border: none;
             padding: 10px;
             font-size: 1.2rem;
             cursor: pointer;
             z-index: 1001;
-            border-radius: 5px;
-            box-shadow: none !important;
         }
     </style>
 </head>
@@ -214,7 +190,7 @@
         </div>
 
         <!-- Título -->
-        <h1 id="titulo-versiculos"></h1>
+        <h1 id="titulo-versiculos" style="color: #006400;"></h1>
 
         <!-- Lista de Versículos -->
         <div id="lista-versiculos" class="versiculos-container"></div>
