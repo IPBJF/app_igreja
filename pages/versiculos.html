@@ -9,45 +9,74 @@
         /* Estilo do Body */
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            color: #006400; /* Verde escuro */
+            font-family: 'Georgia', serif; /* Fonte mais elegante */
+            background-color: #f5f5f5; /* Fundo cinza claro suave */
+            color: #333; /* Cor de texto mais sóbria */
         }
 
         /* Conteúdo Principal */
         .conteudo {
             padding: 20px;
             max-width: 800px;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            color: #333; /* Texto preto para melhor contraste no fundo branco */
+            margin: 40px auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco mais opaco */
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+            border: 1px solid #e0e0e0; /* Borda sutil */
+        }
+
+        /* Controles de Fonte no Topo */
+        .controles-fonte {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .controles-fonte button {
+            background-color: #4a4a4a; /* Cinza escuro elegante */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .controles-fonte button:hover {
+            background-color: #333; /* Tom mais escuro ao passar o mouse */
         }
 
         /* Título */
         h1 {
             text-align: center;
-            color: #006400; /* Verde escuro */
-            margin-bottom: 20px;
+            color: #4a4a4a; /* Cinza escuro elegante */
+            margin-bottom: 30px;
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Fonte mais clássica */
+            font-weight: 400;
+            font-size: 2rem;
+            letter-spacing: 1px;
         }
 
         /* Versículos Contínuos */
         .versiculos-container {
-            text-align: justify; /* Alinha o texto uniformemente */
-            line-height: 1.6; /* Espaçamento entre linhas */
-            white-space: normal; /* Permite quebras naturais de linha */
-            font-size: 16px; /* Tamanho inicial da fonte */
+            text-align: justify;
+            line-height: 1.8;
+            white-space: normal;
+            font-size: 16px;
+            color: #444; /* Tom de texto mais suave */
         }
 
         .versiculo {
-            display: inline; /* Exibe os versículos continuamente */
-            margin-right: 10px; /* Espaçamento entre os versículos */
-            cursor: pointer; /* Cursor de mão para indicar interação */
+            display: inline;
+            margin-right: 10px;
+            cursor: pointer;
         }
 
         /* Destacar Versículo Selecionado */
         .versiculo-selecionado {
-            background-color: rgba(255, 255, 0, 0.5); /* Amarelo semi-transparente */
+            background-color: rgba(255, 215, 0, 0.3); /* Amarelo dourado suave */
             border-radius: 5px;
             padding: 2px 5px;
         }
@@ -56,81 +85,61 @@
         .botoes-navegacao {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .botoes-navegacao button {
-            background-color: #006400; /* Verde escuro */
+            background-color: #4a4a4a; /* Cinza escuro elegante */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
 
         .botoes-navegacao button:disabled {
-            background-color: #555;
+            background-color: #cccccc;
             cursor: not-allowed;
         }
 
         .botoes-navegacao button:hover:not(:disabled) {
-            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+            background-color: #333;
         }
 
         /* Botão de Compartilhar */
         .botao-compartilhar {
-            background-color: #006400; /* Verde escuro */
+            background-color: #4a4a4a;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: 20px;
+            margin-top: 30px;
             display: block;
             width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .botao-compartilhar:disabled {
-            background-color: #555;
+            background-color: #cccccc;
             cursor: not-allowed;
         }
 
         .botao-compartilhar:hover:not(:disabled) {
-            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
-        }
-
-        /* Controles de Fonte */
-        .controles-fonte {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .controles-fonte button {
-            background-color: #006400; /* Verde escuro */
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .controles-fonte button:hover {
-            background-color: #004d00; /* Verde mais escuro ao passar o mouse */
+            background-color: #333;
         }
 
         /* Estilo do Menu Lateral */
         .menu-lateral {
             position: fixed;
             top: 0;
-            left: -250px; /* Esconde o menu fora da tela */
+            left: -250px;
             width: 250px;
             height: 100%;
-            background-color: #333;
+            background-color: #2a2a2a; /* Cinza muito escuro */
             color: white;
             transition: left 0.3s ease;
             padding-top: 60px;
@@ -138,7 +147,7 @@
         }
 
         .menu-lateral-aberto {
-            left: 0; /* Mostra o menu */
+            left: 0;
         }
 
         .menu-item {
@@ -147,10 +156,11 @@
             color: white;
             text-decoration: none;
             border-bottom: 1px solid #444;
+            font-family: 'Georgia', serif;
         }
 
         .menu-item:hover {
-            background-color: #575757;
+            background-color: #3a3a3a;
         }
 
         /* Botão do Menu */
@@ -158,13 +168,14 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            background-color: #333;
+            background-color: #2a2a2a;
             color: white;
             border: none;
             padding: 10px;
             font-size: 1.2rem;
             cursor: pointer;
             z-index: 1001;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -181,8 +192,14 @@
 
     <!-- Conteúdo Principal -->
     <div class="conteudo">
+        <!-- Controles de Fonte no Topo -->
+        <div class="controles-fonte">
+            <button id="btn-aumentar-fonte">+</button>
+            <button id="btn-diminuir-fonte">-</button>
+        </div>
+
         <!-- Título -->
-        <h1 id="titulo-versiculos" style="color: #006400;"></h1>
+        <h1 id="titulo-versiculos"></h1>
 
         <!-- Lista de Versículos -->
         <div id="lista-versiculos" class="versiculos-container"></div>
@@ -193,12 +210,6 @@
             <button id="btn-avancar" disabled>Avançar</button>
         </div>
 
-        <!-- Controles de Fonte -->
-        <div class="controles-fonte">
-            <button id="btn-aumentar-fonte">Aumentar Fonte</button>
-            <button id="btn-diminuir-fonte">Diminuir Fonte</button>
-        </div>
-
         <!-- Botão de Compartilhar -->
         <button id="btn-compartilhar" class="botao-compartilhar" disabled>Compartilhar Versículo(s)</button>
     </div>
@@ -207,69 +218,52 @@
         // Função para Obter Parâmetros da URL
         function obterParametroURL(parametro) {
             const urlParams = new URLSearchParams(window.location.search);
-            const valor = urlParams.get(parametro); // Obtém o valor do parâmetro
-            return decodeURIComponent(valor || ''); // Decodifica o valor (ou retorna string vazia se nulo)
+            const valor = urlParams.get(parametro);
+            return decodeURIComponent(valor || '');
         }
 
         // Função para Carregar Dados do JSON
         async function carregarVersiculos() {
             try {
-                // Obtém o livro e capítulo selecionados da URL
                 let livroSelecionado = obterParametroURL('livro');
                 let capituloSelecionado = parseInt(obterParametroURL('capitulo'), 10);
-
-                console.log('URL atual:', window.location.href); // Log para depuração
-                console.log('Livro selecionado:', livroSelecionado); // Log para verificar o livro
-                console.log('Capítulo selecionado:', capituloSelecionado); // Log para verificar o capítulo
 
                 const tituloVersiculos = document.getElementById('titulo-versiculos');
                 const listaVersiculos = document.getElementById('lista-versiculos');
 
                 if (!livroSelecionado || !capituloSelecionado) {
-                    console.log('Parâmetros livro ou capítulo ausentes na URL');
                     tituloVersiculos.textContent = 'Nenhum versículo encontrado.';
                     return;
                 }
 
-                // Caminho para o arquivo JSON
                 const caminhoJson = '../data/versiculos.json';
-                console.log('Tentando carregar:', caminhoJson); // Log para depuração
                 const response = await fetch(caminhoJson);
                 if (!response.ok) {
                     throw new Error(`Erro ao carregar versiculos.json: ${response.status} ${response.statusText}`);
                 }
                 const dados = await response.json();
 
-                console.log('Versículos carregados:', dados); // Log para verificar os dados
-
-                // Procura o livro e capítulo no JSON
                 if (dados[livroSelecionado] && dados[livroSelecionado][capituloSelecionado]) {
                     tituloVersiculos.textContent = `${livroSelecionado} ${capituloSelecionado}`;
 
-                    // Limpa a lista de versículos
                     listaVersiculos.innerHTML = '';
 
-                    // Adiciona os versículos à lista
                     dados[livroSelecionado][capituloSelecionado].forEach((versiculo, index) => {
                         const span = document.createElement('span');
                         span.className = 'versiculo';
-                        span.textContent = `${index + 1} ${versiculo} `; // Adiciona espaço após o versículo
+                        span.textContent = `${index + 1} ${versiculo} `;
 
-                        // Permite selecionar múltiplos versículos
                         span.onclick = () => {
                             span.classList.toggle('versiculo-selecionado');
-
-                            // Verifica se há versículos selecionados para habilitar o botão de compartilhar
                             const versiculosSelecionados = document.querySelectorAll('.versiculo-selecionado');
                             const btnCompartilhar = document.getElementById('btn-compartilhar');
                             btnCompartilhar.disabled = versiculosSelecionados.length === 0;
 
-                            // Define o texto a ser compartilhado com base nos versículos selecionados
                             btnCompartilhar.onclick = () => {
                                 let textoCompartilhar = '';
                                 versiculosSelecionados.forEach((v, i) => {
-                                    const numeroVersiculo = v.textContent.split(' ')[0]; // Obtém o número do versículo
-                                    const textoVersiculo = v.textContent.slice(numeroVersiculo.length + 1); // Remove o número do texto
+                                    const numeroVersiculo = v.textContent.split(' ')[0];
+                                    const textoVersiculo = v.textContent.slice(numeroVersiculo.length + 1);
                                     textoCompartilhar += `${livroSelecionado} ${capituloSelecionado}:${numeroVersiculo} - ${textoVersiculo}`;
                                     if (i < versiculosSelecionados.length - 1) {
                                         textoCompartilhar += '\n';
@@ -282,13 +276,9 @@
                         listaVersiculos.appendChild(span);
                     });
 
-                    // Configura os botões de navegação
                     configurarBotoesNavegacao(livroSelecionado, capituloSelecionado, dados);
-
-                    // Configura os controles de fonte
                     configurarControlesFonte();
                 } else {
-                    console.log(`Versículos não encontrados para ${livroSelecionado} ${capituloSelecionado}`);
                     tituloVersiculos.textContent = 'Versículos não encontrados.';
                 }
             } catch (error) {
@@ -305,7 +295,6 @@
             const capitulosDisponiveis = Object.keys(dados[livroSelecionado]).map(Number).sort((a, b) => a - b);
             const indiceAtual = capitulosDisponiveis.indexOf(capituloSelecionado);
 
-            // Habilita ou desabilita o botão "Retroceder"
             if (indiceAtual > 0) {
                 btnRetroceder.disabled = false;
                 btnRetroceder.onclick = () => {
@@ -316,7 +305,6 @@
                 btnRetroceder.disabled = true;
             }
 
-            // Habilita ou desabilita o botão "Avançar"
             if (indiceAtual < capitulosDisponiveis.length - 1) {
                 btnAvancar.disabled = false;
                 btnAvancar.onclick = () => {
@@ -341,7 +329,7 @@
 
             btnDiminuirFonte.onclick = () => {
                 const fontSizeAtual = parseFloat(getComputedStyle(listaVersiculos).fontSize);
-                if (fontSizeAtual > 10) { // Limite mínimo para evitar fonte muito pequena
+                if (fontSizeAtual > 10) {
                     listaVersiculos.style.fontSize = `${fontSizeAtual - 2}px`;
                 }
             };
